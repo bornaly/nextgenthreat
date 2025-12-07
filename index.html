@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NextGen Threat – Linux, Security & Automation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+        content="NextGen Threat – Practical Linux & cybersecurity habits, real-world breach defense, and automation for busy admins." />
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-alt: #020617;
+      --card: #020617;
+      --card-alt: #020617;
+      --accent: #22c55e;
+      --accent-soft: rgba(34, 197, 94, 0.08);
+      --accent2: #38bdf8;
+      --text: #e5e7eb;
+      --text-soft: #9ca3af;
+      --border: #1f2937;
+      --danger: #f97373;
+      --radius-lg: 18px;
+      --radius-xl: 26px;
+      --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.6);
+      --shadow-subtle: 0 14px 40px rgba(0, 0, 0, 0.4);
+      --max-width: 1040px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(34, 197, 94, 0.25), transparent 60%),
+        radial-gradient(circle at bottom, rgba(56, 189, 248, 0.18), transparent 55%),
+        #020617;
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+      padding: 24px 16px 40px;
+    }
+
+    .shell {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 26px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-circle {
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background:
+        radial-gradient(circle at 30% 0%, rgba(56, 189, 248, 0.5), transparent 55%),
+        radial-gradient(circle at 70% 110%, rgba(34, 197, 94, 0.42), transparent 55%),
+        #020617;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-circle span {
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: 1px;
+      color: #e5e7eb;
+      text-shadow:
+        0 0 8px rgba(15, 23, 42, 0.8),
+        0 0 18px rgba(34, 197, 94, 0.9);
+    }
+
+    .nav-title {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nav-title-main {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #e5e7eb;
+    }
+
+    .nav-title-sub {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 14px;
+      font-size: 14px;
+    }
+
+    .nav-links a {
+      color: var(--text-soft);
+      text-decoration: none;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: all 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-links a span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.85);
+      box-shadow: 0 0 8px rgba(34, 197, 94, 0.9);
+    }
+
+    .nav-links a:hover {
+      border-color: rgba(148, 163, 184, 0.3);
+      background: rgba(15, 23, 42, 0.85);
+      color: #e5e7eb;
+    }
+
+    .hero {
+      border-radius: var(--radius-xl);
+      padding: 22px 22px 22px;
+      background:
+        linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 0.98)),
+        radial-gradient(circle at top, rgba(56, 189, 248, 0.2), transparent 60%);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
+      gap: 24px;
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: inherit;
+      border: 1px solid transparent;
+      background:
+        linear-gradient(120deg, rgba(56, 189, 248, 0.5), rgba(34, 197, 94, 0.35), transparent)
+        border-box;
+      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0.7;
+    }
+
+    .hero-main {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #a5b4fc;
+      margin-bottom: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-eyebrow span.pill {
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(129, 140, 248, 0.5);
+      font-size: 10px;
+      color: #e5e7eb;
+    }
+
+    .hero-title {
+      font-size: clamp(26px, 4vw, 32px);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .hero-title span.accent {
+      color: var(--accent2);
+      text-shadow:
+        0 0 18px rgba(15, 23, 42, 0.9),
+        0 0 26px rgba(56, 189, 248, 0.9);
+    }
+
+    .hero-subtitle {
+      font-size: 14px;
+      color: var(--text-soft);
+      max-width: 480px;
+      margin-bottom: 16px;
+    }
+
+    .hero-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-bottom: 18px;
+    }
+
+    .hero-metrics span strong {
+      color: var(--accent);
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      border-radius: 999px;
+      padding: 9px 14px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text);
+      background: rgba(15, 23, 42, 0.9);
+      transition: all 0.18s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .btn-primary {
+      border-color: rgba(34, 197, 94, 0.8);
+      background:
+        radial-gradient(circle at top, rgba(34, 197, 94, 0.35), transparent 55%),
+        linear-gradient(135deg, #16a34a, #22c55e);
+      color: #ecfdf5;
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 40px rgba(22, 163, 74, 0.6);
+      filter: brightness(1.05);
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-1px);
+      border-color: rgba(148, 163, 184, 0.9);
+      background: rgba(15, 23, 42, 0.95);
+    }
+
+    .hero-note {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .hero-aside {
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at top, rgba(56, 189, 248, 0.3), transparent 60%),
+        radial-gradient(circle at bottom, rgba(22, 163, 74, 0.4), transparent 60%),
+        rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      box-shadow: var(--shadow-subtle);
+      padding: 16px 16px 14px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-aside-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .hero-badge {
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(56, 189, 248, 0.7);
+      font-size: 11px;
+      color: #e5e7eb;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-badge span.pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.9);
+      box-shadow: 0 0 8px rgba(34, 197, 94, 0.9);
+    }
+
+    .aside-matrix {
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), #020617);
+      padding: 10px 12px 11px;
+      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 11px;
+      color: #9ca3af;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .aside-matrix-line {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .aside-matrix-line span.key {
+      color: #6b7280;
+    }
+
+    .aside-matrix-line span.val-ok {
+      color: #4ade80;
+    }
+
+    .aside-matrix-line span.val-high {
+      color: #f97373;
+    }
+
+    .aside-matrix-grid {
+      margin-top: 6px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 3px;
+      font-size: 9px;
+    }
+
+    .grid-chip {
+      border-radius: 999px;
+      border: 1px solid rgba(75, 85, 99, 0.7);
+      padding: 3px 5px;
+      text-align: center;
+      background: rgba(15, 23, 42, 0.9);
+      color: #9ca3af;
+    }
+
+    .grid-chip--hot {
+      border-color: rgba(34, 197, 94, 0.9);
+      color: #bbf7d0;
+      box-shadow: 0 0 14px rgba(34, 197, 94, 0.45);
+    }
+
+    .pill-strip {
+      margin-top: 7px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .pill-strip span {
+      font-size: 10px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: rgba(15, 23, 42, 0.95);
+    }
+
+    .section {
+      margin-bottom: 26px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      gap: 12px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title span.marker {
+      width: 7px;
+      height: 18px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, var(--accent2), var(--accent));
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.7);
+    }
+
+    .section-sub {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .pill-filter {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      font-size: 11px;
+    }
+
+    .pill-filter button {
+      border-radius: 999px;
+      padding: 4px 8px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: rgba(15, 23, 42, 0.85);
+      color: #9ca3af;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .pill-filter button span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.7);
+    }
+
+    .pill-filter button.active {
+      border-color: rgba(34, 197, 94, 0.9);
+      color: #bbf7d0;
+      background: rgba(21, 128, 61, 0.25);
+    }
+
+    .pill-filter button.active span.dot {
+      background: rgba(34, 197, 94, 0.95);
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.9);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    @media (max-width: 880px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 16px 12px 30px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding: 18px 16px 18px;
+      }
+
+      .grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      border-radius: var(--radius-lg);
+      padding: 12px 11px 11px;
+      background:
+        radial-gradient(circle at top, rgba(15, 23, 42, 0.96), #020617);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.55);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .card-tag-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-bottom: 2px;
+    }
+
+    .card-tag {
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.95);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 2px;
+      color: #e5e7eb;
+    }
+
+    .card-excerpt {
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-bottom: 4px;
+    }
+
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: #6b7280;
+      margin-top: auto;
+    }
+
+    .card-meta span.dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 999px;
+      background: #4b5563;
+    }
+
+    .card-actions {
+      margin-top: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+    }
+
+    .card-actions a {
+      font-size: 11px;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 5px 9px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .card-actions a:hover {
+      border-color: rgba(34, 197, 94, 0.9);
+      background: rgba(21, 128, 61, 0.3);
+      color: #bbf7d0;
+    }
+
+    .card-badge {
+      border-radius: 999px;
+      padding: 2px 7px;
+      font-size: 10px;
+      border: 1px solid rgba(234, 179, 8, 0.7);
+      color: #facc15;
+      background: rgba(24, 24, 27, 0.95);
+    }
+
+    .tools-note {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-top: 4px;
+    }
+
+    .footer {
+      margin-top: 22px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+      font-size: 11px;
+      color: #6b7280;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 11px;
+    }
+
+    .footer-links a {
+      color: #9ca3af;
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: #e5e7eb;
+    }
+
+    .label-pill {
+      font-size: 10px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px dashed rgba(148, 163, 184, 0.5);
+      color: #9ca3af;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <!-- NAV -->
+    <header class="nav">
+      <div class="nav-left">
+        <div class="logo-circle">
+          <span>N</span>
+        </div>
+        <div class="nav-title">
+          <div class="nav-title-main">NextGen Threat</div>
+          <div class="nav-title-sub">Linux · Security · Automation</div>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <a href="#blogs">Blogs</a>
+        <a href="#tools">Security tools</a>
+        <a href="#about">About</a>
+        <a href="https://medium.com/@bornaly" target="_blank" rel="noopener">
+          <span class="dot"></span> Medium
+        </a>
+      </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-main">
+        <div class="hero-eyebrow">
+          Linux & cyber defense
+          <span class="pill">Real-world habits · No fluff</span>
+        </div>
+        <h1 class="hero-title">
+          I help admins <span class="accent">harden Linux & Windows</span> using
+          real breaches, logs, and automation.
+        </h1>
+        <p class="hero-subtitle">
+          I’m Faruk Ahmed, Editor of <strong>NextGen Threat</strong> on Medium.
+          I share defensive playbooks, “security habits”, and scripts that busy
+          engineers can apply in minutes — before attackers do.
+        </p>
+        <div class="hero-metrics">
+          <span><strong>900+ followers</strong> on Medium</span>
+          <span><strong>Hands-on</strong> Linux & DLP in production</span>
+          <span>Focus: breach prevention, log visibility, automation.</span>
+        </div>
+        <div class="hero-cta-row">
+          <a class="btn btn-primary"
+             href="https://medium.com/@bornaly" target="_blank" rel="noopener">
+            🔐 Read security blogs on Medium
+          </a>
+          <a class="btn btn-secondary"
+             href="#tools">
+            🛠 Explore security tools
+          </a>
+        </div>
+        <div class="hero-note">
+          This site shows previews only. Full articles stay on Medium so the
+          platform can track readers and pay fairly.
+        </div>
+      </div>
+
+      <aside class="hero-aside">
+        <div class="hero-aside-header">
+          <div class="hero-badge">
+            <span class="pulse-dot"></span>
+            Live security focus
+          </div>
+          <span>Updated as new blogs ship</span>
+        </div>
+        <div class="aside-matrix">
+          <div class="aside-matrix-line">
+            <span class="key">surface_exposed</span>
+            <span class="val-high">ssh · logs · users</span>
+          </div>
+          <div class="aside-matrix-line">
+            <span class="key">defense_mode</span>
+            <span class="val-ok">habit-first · script-backed</span>
+          </div>
+          <div class="aside-matrix-line">
+            <span class="key">target_stack</span>
+            <span class="val-ok">Linux · Windows · Cloud</span>
+          </div>
+          <div class="aside-matrix-grid">
+            <div class="grid-chip grid-chip--hot">Linux habits</div>
+            <div class="grid-chip">Windows logs</div>
+            <div class="grid-chip">SSH hardening</div>
+            <div class="grid-chip">Automation</div>
+            <div class="grid-chip">Real breaches</div>
+          </div>
+          <div class="pill-strip">
+            <span>#LinuxSecurity</span>
+            <span>#BreachDefense</span>
+            <span>#Automation</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- BLOGS SECTION -->
+    <section id="blogs" class="section">
+      <div class="section-header">
+        <div>
+          <div class="section-title">
+            <span class="marker"></span>
+            <span>Latest security habits & breach lessons</span>
+          </div>
+          <div class="section-sub">
+            Previews only — click “Read on Medium” to open the full article
+            (and let Medium track + pay correctly).
+          </div>
+        </div>
+        <div class="pill-filter" id="blog-filters">
+          <button data-filter="all" class="active">
+            <span class="dot"></span> All
+          </button>
+          <button data-filter="Linux">
+            <span class="dot"></span> Linux
+          </button>
+          <button data-filter="Windows">
+            <span class="dot"></span> Windows
+          </button>
+          <button data-filter="Automation">
+            <span class="dot"></span> Automation
+          </button>
+        </div>
+      </div>
+
+      <div class="grid" id="blog-list">
+        <!-- Cards will be injected here by JS -->
+      </div>
+    </section>
+
+    <!-- TOOLS SECTION -->
+    <section id="tools" class="section">
+      <div class="section-header">
+        <div>
+          <div class="section-title">
+            <span class="marker"></span>
+            <span>Security tools & checklists</span>
+          </div>
+          <div class="section-sub">
+            Scripts and kits you can run in real environments to monitor,
+            detect, and harden faster.
+          </div>
+        </div>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <div class="card-tag-row">
+            <span class="card-tag">Linux · SSH</span>
+            <span class="card-badge">Coming soon</span>
+          </div>
+          <h3 class="card-title">SSH Intrusion Detection Script</h3>
+          <p class="card-excerpt">
+            Monitor SSH logs, spot brute-force attempts, auto-block offenders,
+            and receive alerts before attackers settle in.
+          </p>
+          <div class="card-meta">
+            <span>Ideal for VPS & homelabs</span>
+            <span class="dot"></span>
+            <span>Shell + config-based</span>
+          </div>
+          <div class="card-actions">
+            <a href="#" onclick="alert('Link coming soon.'); return false;">
+              🔜 View product page
+            </a>
+            <span class="tools-note">Will link to Ko-fi / Gumroad.</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-tag-row">
+            <span class="card-tag">Logs · Cross-platform</span>
+            <span class="card-badge">In development</span>
+          </div>
+          <h3 class="card-title">Smart Log Analyzer</h3>
+          <p class="card-excerpt">
+            A desktop tool to scan Linux & Windows logs, surface suspicious
+            entries, and export clean reports for ops teams.
+          </p>
+          <div class="card-meta">
+            <span>Focus: high-signal lines only</span>
+            <span class="dot"></span>
+            <span>GUI + exports</span>
+          </div>
+          <div class="card-actions">
+            <a href="#" onclick="alert('Link coming soon.'); return false;">
+              🔜 View product page
+            </a>
+            <span class="tools-note">Bundle planned for NextGen Threat.</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-tag-row">
+            <span class="card-tag">Linux · Hardening</span>
+            <span class="card-badge">Planned</span>
+          </div>
+          <h3 class="card-title">Linux Hardening Starter Pack</h3>
+          <p class="card-excerpt">
+            Opinionated checklist, scripts, and baseline configs to treat every
+            new server as “already compromised” from Day 1.
+          </p>
+          <div class="card-meta">
+            <span>For admins & security teams</span>
+            <span class="dot"></span>
+            <span>Checklists + scripts</span>
+          </div>
+          <div class="card-actions">
+            <a href="#" onclick="alert('Link coming soon.'); return false;">
+              🔜 View product page
+            </a>
+            <span class="tools-note">Great upsell from your blogs.</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="section">
+      <div class="section-header">
+        <div>
+          <div class="section-title">
+            <span class="marker"></span>
+            <span>About Faruk & NextGen Threat</span>
+          </div>
+          <div class="section-sub">
+            Real-world security from someone who lives in the logs daily.
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <p class="card-excerpt" style="margin-bottom: 6px;">
+          I’m <strong>Faruk Ahmed</strong>, an information security analyst
+          focused on Linux security, DLP, and automation. I’ve worked with
+          enterprise stacks like Forcepoint, CrowdStrike, QRadar, and FireEye
+          to protect real production systems.
+        </p>
+        <p class="card-excerpt" style="margin-bottom: 6px;">
+          NextGen Threat is where I turn that experience into practical
+          “security habits”, scripts, and tools — so admins don’t have to wait
+          for a breach to tighten their defenses.
+        </p>
+        <p class="card-excerpt">
+          If you manage Linux or Windows servers and want fewer surprises, my
+          goal is simple: help you see dangerous activity earlier and respond
+          faster, with less noise.
+        </p>
+        <div class="card-actions" style="margin-top: 10px;">
+          <a href="https://medium.com/@bornaly" target="_blank" rel="noopener">
+            ✍️ Follow me on Medium
+          </a>
+          <a href="mailto:bornaly@gmail.com">
+            📩 Contact for collaboration
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div>
+        © <span id="year"></span> NextGen Threat. All rights reserved.
+      </div>
+      <div class="footer-links">
+        <span class="label-pill">Find me here:</span>
+        <a href="https://medium.com/@bornaly" target="_blank" rel="noopener">Medium</a>
+        <a href="https://www.linkedin.com/in/bornaly/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://x.com/cyberwebpen" target="_blank" rel="noopener">X (Twitter)</a>
+        <a href="https://www.facebook.com/TechnologyBlogsPage/" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://discord.gg/FkjR2WFs" target="_blank" rel="noopener">Discord</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // ---- Dynamic year ----
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // ---- Blog data (EDIT THIS ONLY) ----
+    // Add / remove posts here. Only previews + Medium links, NOT full content.
+    const blogPosts = [
+      {
+        title: "Linux Security Habit #1 — The One Command I Run Before Touching Any Server",
+        tag: "Linux",
+        date: "2025-10-01",
+        readTime: "7 min read",
+        preview:
+          "Before I do anything on a production Linux server, I run one command to see what I’m walking into. This habit has saved me from quiet disasters more than once…",
+        url: "https://medium.com/@bornaly/your-linux-habit-1-link-here",
+        highlight: true
+      },
+      {
+        title: "Linux Security Habit #2 — The Hidden File That Tells You If Someone Touched Your System",
+        tag: "Linux",
+        date: "2025-10-10",
+        readTime: "8 min read",
+        preview:
+          "Most admins ignore this one file until it’s too late. Watch it closely, and you’ll know who touched what long before logs scream for help.",
+        url: "https://medium.com/@bornaly/your-linux-habit-2-link-here",
+        highlight: false
+      },
+      {
+        title: "Why I Treat Every New Linux Server As Already Compromised",
+        tag: "Linux",
+        date: "2025-09-15",
+        readTime: "9 min read",
+        preview:
+          "Assuming a fresh server is ‘clean’ is how subtle breaches survive for months. Here’s the mindset and checks I use instead.",
+        url: "https://medium.com/@bornaly/your-treat-server-compromised-link",
+        highlight: false
+      },
+      {
+        title: "The One Linux Security Habit That Saved Me From a Silent Breach",
+        tag: "Linux",
+        date: "2025-08-20",
+        readTime: "10 min read",
+        preview:
+          "Attackers were already inside. A small daily habit around logs is what caught them before they turned persistence into damage.",
+        url: "https://medium.com/@bornaly/your-silent-breach-habit-link",
+        highlight: false
+      },
+      {
+        title: "Windows Login Logs: The Most Ignored Alarm Bell in Most Environments",
+        tag: "Windows",
+        date: "2025-07-05",
+        readTime: "6 min read",
+        preview:
+          "If you only had one place to watch on a Windows environment, I’d start with this log. It’s noisy by default, but gold once tuned.",
+        url: "https://medium.com/@bornaly/your-windows-login-logs-link",
+        highlight: false
+      },
+      {
+        title: "Automation Habit: Scripts I Run Weekly to Keep Servers Boring (In a Good Way)",
+        tag: "Automation",
+        date: "2025-06-18",
+        readTime: "7 min read",
+        preview:
+          "Security is easier when servers are predictable. These small recurring automations keep my environments boring, stable, and harder to break.",
+        url: "https://medium.com/@bornaly/your-automation-habit-link",
+        highlight: false
+      }
+    ];
+
+    function renderBlogs(filter = "all") {
+      const container = document.getElementById("blog-list");
+      container.innerHTML = "";
+
+      const filtered = blogPosts.filter(post =>
+        filter === "all" ? true : post.tag === filter
+      );
+
+      filtered.forEach(post => {
+        const card = document.createElement("article");
+        card.className = "card";
+
+        card.innerHTML = `
+          <div class="card-tag-row">
+            <span class="card-tag">${post.tag}</span>
+            ${post.highlight ? '<span class="card-badge">Top pick</span>' : ""}
+          </div>
+          <h3 class="card-title">${post.title}</h3>
+          <p class="card-excerpt">${post.preview}</p>
+          <div class="card-meta">
+            <span>${post.date}</span>
+            <span class="dot"></span>
+            <span>${post.readTime}</span>
+          </div>
+          <div class="card-actions">
+            <a href="${post.url}" target="_blank" rel="noopener">
+              🔗 Read on Medium
+            </a>
+            <span>Opens on Medium (login may be required).</span>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    // Initial render
+    renderBlogs("all");
+
+    // Filter buttons
+    const filterContainer = document.getElementById("blog-filters");
+    filterContainer.addEventListener("click", (e) => {
+      if (e.target.tagName.toLowerCase() === "button") {
+        const filter = e.target.getAttribute("data-filter");
+        filterContainer.querySelectorAll("button").forEach(btn => btn.classList.remove("active"));
+        e.target.classList.add("active");
+        renderBlogs(filter === "all" ? "all" : filter);
+      }
+    });
+  </script>
+</body>
+</html>
