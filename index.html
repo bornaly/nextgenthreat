@@ -638,23 +638,15 @@
       color: #9ca3af;
     }
   
-/* Load-more helpers for latest posts */
-.section-latest .blog-card.is-hidden {
-  display: none;
-}
+      .load-more-wrap {
+        margin-top: 14px;
+        text-align: center;
+      }
+      .load-more-wrap button {
+        margin-top: 4px;
+      }
 
-.load-more-wrap {
-  margin-top: 1.75rem;
-  text-align: center;
-}
-
-.load-more-btn {
-  padding: 0.75rem 1.75rem;
-  border-radius: 999px;
-  font-weight: 500;
-  font-size: 0.95rem;
-}
-</style>
+  </style>
 </head>
 <body>
   <div class="shell">
@@ -784,6 +776,9 @@
 
       <div class="grid" id="blog-list">
         <!-- Cards will be injected here by JS -->
+      </div>
+      <div class="load-more-wrap">
+        <button id="load-more-btn" class="btn btn-secondary">Load 8 more posts</button>
       </div>
     </section>
 
@@ -930,109 +925,136 @@
     </footer>
   </div>
 
-  <script>
-    // ---- Dynamic year ----
-    document.getElementById("year").textContent = new Date().getFullYear();
+    <script>
+    // Keep footer year current
+    (function () {
+      var yearEl = document.getElementById("year");
+      if (yearEl) {
+        yearEl.textContent = new Date().getFullYear();
+      }
+    })();
 
-    // ---- Blog data (EDIT THIS ONLY) ----
-    // Add / remove posts here. Only previews + Medium links, NOT full content.
-            const blogPosts = [
+    const CHUNK_SIZE = 8;
+    let allPosts = [];
+    let currentFilter = "all";
+    let visibleCount = CHUNK_SIZE;
 
-    ];
+    const blogListEl = document.getElementById("blog-list");
+    const filterContainer = document.querySelector(".pill-row");
+    const loadMoreBtn = document.getElementById("load-more-btn");
 
-    function renderBlogs(filter = "all") {
-      const container = document.getElementById("blog-list");
-      container.innerHTML = "";
+    function detectTagFromTitle(title) {
+      const t = (title || "").toLowerCase();
+      if (t.includes("windows")) return "Windows";
+      if (t.includes("linux")) return "Linux";
+      if (t.includes("bash") || t.includes("script") || t.includes("automation")) return "Automation";
+      return "Linux";
+    }
 
-      const filtered = blogPosts.filter(post =>
-        filter === "all" ? true : post.tag === filter
-      );
+    function buildPostsFromCards() {
+      const source = document.getElementById("blog-data-source");
+      if (!source) return;
 
-      filtered.forEach(post => {
+      const cards = Array.from(source.querySelectorAll(".blog-card"));
+      allPosts = cards.map((card) => {
+        const link = card.querySelector("a");
+        const titleEl = card.querySelector(".blog-card-title");
+        const metaEl = card.querySelector(".blog-card-meta");
+
+        const title = titleEl ? titleEl.textContent.trim() : "";
+        const url = link ? link.href : "#";
+
+        let readTime = "";
+        if (metaEl) {
+          const metaText = metaEl.textContent.trim();
+          const parts = metaText.split("•").map((p) => p.trim());
+          if (parts.length === 1) {
+            readTime = parts[0];
+          } else if (parts.length >= 2) {
+            readTime = parts[1];
+          }
+        }
+
+        const tag = detectTagFromTitle(title);
+        return { title, url, readTime, tag };
+      });
+    }
+
+    function renderBlogs(filterValue) {
+      if (!blogListEl) return;
+
+      if (filterValue) {
+        currentFilter = filterValue;
+        visibleCount = CHUNK_SIZE;
+      }
+
+      blogListEl.innerHTML = "";
+
+      const filtered = allPosts.filter((post) => {
+        if (currentFilter === "all") return true;
+        return post.tag === currentFilter;
+      });
+
+      const slice = filtered.slice(0, visibleCount);
+
+      slice.forEach((post) => {
         const card = document.createElement("article");
-        card.className = "card";
+        card.className = "card-wrapper";
 
         card.innerHTML = `
-          <div class="card-tag-row">
-            <span class="card-tag">${post.tag}</span>
-            ${post.highlight ? '<span class="card-badge">Top pick</span>' : ""}
-          </div>
-          <h3 class="card-title">${post.title}</h3>
-          <p class="card-excerpt">${post.preview}</p>
-          <div class="card-meta">
-            <span>${post.date}</span>
-            <span class="dot"></span>
-            <span>${post.readTime}</span>
-          </div>
-          <div class="card-actions">
-            <a href="${post.url}" target="_blank" rel="noopener">
-              🔗 Read on Medium
-            </a>
-            <span>Opens on Medium (login may be required).</span>
-          </div>
+          <a href="${post.url}" class="card" target="_blank" rel="noopener">
+            <div class="card-meta">
+              <span class="card-tag">${post.tag}</span>
+              ${post.readTime ? `<span>${post.readTime}</span>` : ""}
+            </div>
+            <h3 class="card-title">${post.title}</h3>
+          </a>
         `;
 
-        container.appendChild(card);
+        blogListEl.appendChild(card);
       });
-    }
 
-    // Initial render
-    renderBlogs("all");
-
-    // Filter buttons
-    const filterContainer = document.getElementById("blog-filters");
-    filterContainer.addEventListener("click", (e) => {
-      if (e.target.tagName.toLowerCase() === "button") {
-        const filter = e.target.getAttribute("data-filter");
-        filterContainer.querySelectorAll("button").forEach(btn => btn.classList.remove("active"));
-        e.target.classList.add("active");
-        renderBlogs(filter === "all" ? "all" : filter);
-      }
-    });
-  </script>
-
-<script>
-  // Progressive "Load more" behaviour for latest posts
-  document.addEventListener('DOMContentLoaded', function () {
-    const STEP = 8;
-    const cards = Array.from(document.querySelectorAll('.section-latest .blog-card'));
-    if (!cards.length) return;
-
-    let visibleCount = 0;
-    const loadMoreBtn = document.getElementById('load-more-btn');
-    const loadMoreWrap = document.getElementById('load-more-wrap');
-
-    function showNextBatch() {
-      const nextLimit = Math.min(visibleCount + STEP, cards.length);
-      for (let i = visibleCount; i < nextLimit; i++) {
-        cards[i].classList.remove('is-hidden');
-      }
-      visibleCount = nextLimit;
-
-      if (visibleCount >= cards.length && loadMoreWrap) {
-        loadMoreWrap.style.display = 'none';
+      if (loadMoreBtn) {
+        if (visibleCount >= filtered.length) {
+          loadMoreBtn.style.display = "none";
+        } else {
+          loadMoreBtn.style.display = "inline-flex";
+        }
       }
     }
 
-    // Hide all cards first
-    cards.forEach(card => card.classList.add('is-hidden'));
+    function handleFilterClick(event) {
+      const pill = event.target.closest(".pill");
+      if (!pill || !pill.dataset.filter) return;
 
-    // Show initial batch
-    showNextBatch();
+      const value = pill.dataset.filter;
+
+      document.querySelectorAll(".pill").forEach((p) => {
+        p.classList.remove("active");
+      });
+      pill.classList.add("active");
+
+      renderBlogs(value);
+    }
+
+    if (filterContainer) {
+      filterContainer.addEventListener("click", handleFilterClick);
+    }
 
     if (loadMoreBtn) {
-      loadMoreBtn.addEventListener('click', function () {
-        showNextBatch();
+      loadMoreBtn.addEventListener("click", function () {
+        visibleCount += CHUNK_SIZE;
+        renderBlogs();
       });
     }
-  });
-</script>
 
-</body>
-</html>
+    // Initialize from hidden blog cards
+    buildPostsFromCards();
+    renderBlogs();
+  </script>
 
-
-
+    <!-- Raw blog cards used as data source for home + archive -->
+    <div id="blog-data-source" style="display:none;">
 <!-- BLOG-CARDS-START -->
 <article class="blog-card">
           <a href="https://medium.com/@bornaly/10-security-commands-every-linux-admin-should-know-but-probably-doesnt-02ad7afda229" target="_blank" rel="noopener">
@@ -5730,10 +5752,10 @@ Thanks!</h3>
           </a>
         </article>
 <!-- BLOG-CARDS-END -->
-    <!-- Load more posts button -->
-    <div class="load-more-wrap" id="load-more-wrap">
-      <button type="button" class="btn btn-secondary load-more-btn" id="load-more-btn">
-        Load 8 more posts
-      </button>
+
     </div>
+</body>
+</html>
+
+
 
