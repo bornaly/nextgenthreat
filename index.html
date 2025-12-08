@@ -638,15 +638,35 @@
       color: #9ca3af;
     }
   
-      .load-more-wrap {
-        margin-top: 14px;
-        text-align: center;
-      }
-      .load-more-wrap button {
-        margin-top: 4px;
-      }
-
-  </style>
+    .load-more-wrapper {
+      margin-top: 1.75rem;
+      display: flex;
+      justify-content: center;
+    }
+    .load-more-button {
+      padding: 0.75rem 1.6rem;
+      border-radius: 999px;
+      border: none;
+      background: radial-gradient(circle at top left, #22c55e, #22d3ee);
+      color: #0b1120;
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.7),
+                  0 0 0 1px rgba(148, 163, 184, 0.2);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+    }
+    .load-more-button:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.9);
+    }
+    .load-more-button:active {
+      transform: translateY(0);
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.8);
+    }
+</style>
 </head>
 <body>
   <div class="shell">
@@ -775,287 +795,7 @@
       </div>
 
       <div class="grid" id="blog-list">
-        <!-- Cards will be injected here by JS -->
-      </div>
-      <div class="load-more-wrap">
-        <button id="load-more-btn" class="btn btn-secondary">Load 8 more posts</button>
-      </div>
-    </section>
-
-    <!-- TOOLS SECTION -->
-    <section id="tools" class="section">
-      <div class="section-header">
-        <div>
-          <div class="section-title">
-            <span class="marker"></span>
-            <span>Security tools & checklists</span>
-          </div>
-          <div class="section-sub">
-            Scripts and kits you can run in real environments to monitor,
-            detect, and harden faster.
-          </div>
-        </div>
-      </div>
-      <div class="grid">
-        <article class="card">
-          <div class="card-tag-row">
-            <span class="card-tag">Linux · SSH</span>
-            <span class="card-badge">Available</span>
-          </div>
-          <h3 class="card-title">SSH Intrusion Detection Script</h3>
-          <p class="card-excerpt">
-            Monitor SSH logs, spot brute-force attempts, auto-block offenders,
-            and receive alerts before attackers settle in.
-          </p>
-          <div class="card-meta">
-            <span>Ideal for VPS & homelabs</span>
-            <span class="dot"></span>
-            <span>Shell + config-based</span>
-          </div>
-          <div class="card-actions">
-            <a href="https://ko-fi.com/s/9b510f7393" onclick="alert('Link coming soon.'); return false;">
-              🔜 View product page
-            </a>
-            <span class="tools-note">Will link to Ko-fi / Gumroad.</span>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-tag-row">
-            <span class="card-tag">Logs · Cross-platform</span>
-            <span class="card-badge">In development</span>
-          </div>
-          <h3 class="card-title">Smart Log Analyzer</h3>
-          <p class="card-excerpt">
-            A desktop tool to scan Linux & Windows logs, surface suspicious
-            entries, and export clean reports for ops teams.
-          </p>
-          <div class="card-meta">
-            <span>Focus: high-signal lines only</span>
-            <span class="dot"></span>
-            <span>GUI + exports</span>
-          </div>
-          <div class="card-actions">
-            <a href="#" onclick="alert('Link coming soon.'); return false;">
-              🔜 View product page
-            </a>
-            <span class="tools-note">Bundle planned for NextGen Threat.</span>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-tag-row">
-            <span class="card-tag">Linux · Hardening</span>
-            <span class="card-badge">Planned</span>
-          </div>
-          <h3 class="card-title">Linux Hardening Starter Pack</h3>
-          <p class="card-excerpt">
-            Opinionated checklist, scripts, and baseline configs to treat every
-            new server as “already compromised” from Day 1.
-          </p>
-          <div class="card-meta">
-            <span>For admins & security teams</span>
-            <span class="dot"></span>
-            <span>Checklists + scripts</span>
-          </div>
-          <div class="card-actions">
-            <a href="#" onclick="alert('Link coming soon.'); return false;">
-              🔜 View product page
-            </a>
-            <span class="tools-note">Great upsell from your blogs.</span>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- ABOUT SECTION -->
-    <section id="about" class="section">
-      <div class="section-header">
-        <div>
-          <div class="section-title">
-            <span class="marker"></span>
-            <span>About Faruk & NextGen Threat</span>
-          </div>
-          <div class="section-sub">
-            Real-world security from someone who lives in the logs daily.
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <p class="card-excerpt" style="margin-bottom: 6px;">
-          I’m <strong>Faruk Ahmed</strong>, an information security analyst
-          focused on Linux security, DLP, and automation. I’ve worked with
-          enterprise stacks like Forcepoint, CrowdStrike, QRadar, and FireEye
-          to protect real production systems.
-        </p>
-        <p class="card-excerpt" style="margin-bottom: 6px;">
-          NextGen Threat is where I turn that experience into practical
-          “security habits”, scripts, and tools — so admins don’t have to wait
-          for a breach to tighten their defenses.
-        </p>
-        <p class="card-excerpt">
-          If you manage Linux or Windows servers and want fewer surprises, my
-          goal is simple: help you see dangerous activity earlier and respond
-          faster, with less noise.
-        </p>
-        <div class="card-actions" style="margin-top: 10px;">
-          <a href="https://medium.com/@bornaly" target="_blank" rel="noopener">
-            ✍️ Follow me on Medium
-          </a>
-          <a href="mailto:bornaly@gmail.com">
-            📩 Contact for collaboration
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-      <div>
-        © <span id="year"></span> NextGen Threat. All rights reserved.
-      </div>
-      <div class="footer-links">
-        <span class="label-pill">Find me here:</span>
-        <a href="https://medium.com/@bornaly" target="_blank" rel="noopener">Medium</a>
-        <a href="https://www.linkedin.com/in/bornaly/" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://x.com/cyberwebpen" target="_blank" rel="noopener">X (Twitter)</a>
-        <a href="https://www.facebook.com/nextgenthreat/" target="_blank" rel="noopener">Facebook</a>
-        <a href="https://discord.gg/FkjR2WFs" target="_blank" rel="noopener">Discord</a>
-      </div>
-    </footer>
-  </div>
-
-    <script>
-    // Keep footer year current
-    (function () {
-      var yearEl = document.getElementById("year");
-      if (yearEl) {
-        yearEl.textContent = new Date().getFullYear();
-      }
-    })();
-
-    const CHUNK_SIZE = 8;
-    let allPosts = [];
-    let currentFilter = "all";
-    let visibleCount = CHUNK_SIZE;
-
-    const blogListEl = document.getElementById("blog-list");
-    const filterContainer = document.querySelector(".pill-row");
-    const loadMoreBtn = document.getElementById("load-more-btn");
-
-    function detectTagFromTitle(title) {
-      const t = (title || "").toLowerCase();
-      if (t.includes("windows")) return "Windows";
-      if (t.includes("linux")) return "Linux";
-      if (t.includes("bash") || t.includes("script") || t.includes("automation")) return "Automation";
-      return "Linux";
-    }
-
-    function buildPostsFromCards() {
-      const source = document.getElementById("blog-data-source");
-      if (!source) return;
-
-      const cards = Array.from(source.querySelectorAll(".blog-card"));
-      allPosts = cards.map((card) => {
-        const link = card.querySelector("a");
-        const titleEl = card.querySelector(".blog-card-title");
-        const metaEl = card.querySelector(".blog-card-meta");
-
-        const title = titleEl ? titleEl.textContent.trim() : "";
-        const url = link ? link.href : "#";
-
-        let readTime = "";
-        if (metaEl) {
-          const metaText = metaEl.textContent.trim();
-          const parts = metaText.split("•").map((p) => p.trim());
-          if (parts.length === 1) {
-            readTime = parts[0];
-          } else if (parts.length >= 2) {
-            readTime = parts[1];
-          }
-        }
-
-        const tag = detectTagFromTitle(title);
-        return { title, url, readTime, tag };
-      });
-    }
-
-    function renderBlogs(filterValue) {
-      if (!blogListEl) return;
-
-      if (filterValue) {
-        currentFilter = filterValue;
-        visibleCount = CHUNK_SIZE;
-      }
-
-      blogListEl.innerHTML = "";
-
-      const filtered = allPosts.filter((post) => {
-        if (currentFilter === "all") return true;
-        return post.tag === currentFilter;
-      });
-
-      const slice = filtered.slice(0, visibleCount);
-
-      slice.forEach((post) => {
-        const card = document.createElement("article");
-        card.className = "card-wrapper";
-
-        card.innerHTML = `
-          <a href="${post.url}" class="card" target="_blank" rel="noopener">
-            <div class="card-meta">
-              <span class="card-tag">${post.tag}</span>
-              ${post.readTime ? `<span>${post.readTime}</span>` : ""}
-            </div>
-            <h3 class="card-title">${post.title}</h3>
-          </a>
-        `;
-
-        blogListEl.appendChild(card);
-      });
-
-      if (loadMoreBtn) {
-        if (visibleCount >= filtered.length) {
-          loadMoreBtn.style.display = "none";
-        } else {
-          loadMoreBtn.style.display = "inline-flex";
-        }
-      }
-    }
-
-    function handleFilterClick(event) {
-      const pill = event.target.closest(".pill");
-      if (!pill || !pill.dataset.filter) return;
-
-      const value = pill.dataset.filter;
-
-      document.querySelectorAll(".pill").forEach((p) => {
-        p.classList.remove("active");
-      });
-      pill.classList.add("active");
-
-      renderBlogs(value);
-    }
-
-    if (filterContainer) {
-      filterContainer.addEventListener("click", handleFilterClick);
-    }
-
-    if (loadMoreBtn) {
-      loadMoreBtn.addEventListener("click", function () {
-        visibleCount += CHUNK_SIZE;
-        renderBlogs();
-      });
-    }
-
-    // Initialize from hidden blog cards
-    buildPostsFromCards();
-    renderBlogs();
-  </script>
-
-    <!-- Raw blog cards used as data source for home + archive -->
-    <div id="blog-data-source" style="display:none;">
-<!-- BLOG-CARDS-START -->
+      <!-- BLOG-CARDS-START -->
 <article class="blog-card">
           <a href="https://medium.com/@bornaly/10-security-commands-every-linux-admin-should-know-but-probably-doesnt-02ad7afda229" target="_blank" rel="noopener">
             <div class="blog-card-thumb"></div>
@@ -5752,10 +5492,204 @@ Thanks!</h3>
           </a>
         </article>
 <!-- BLOG-CARDS-END -->
+      </div>
+    </section>
 
-    </div>
+    <!-- TOOLS SECTION -->
+    <section id="tools" class="section">
+      <div class="section-header">
+        <div>
+          <div class="section-title">
+            <span class="marker"></span>
+            <span>Security tools & checklists</span>
+          </div>
+          <div class="section-sub">
+            Scripts and kits you can run in real environments to monitor,
+            detect, and harden faster.
+          </div>
+        </div>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <div class="card-tag-row">
+            <span class="card-tag">Linux · SSH</span>
+            <span class="card-badge">Available</span>
+          </div>
+          <h3 class="card-title">SSH Intrusion Detection Script</h3>
+          <p class="card-excerpt">
+            Monitor SSH logs, spot brute-force attempts, auto-block offenders,
+            and receive alerts before attackers settle in.
+          </p>
+          <div class="card-meta">
+            <span>Ideal for VPS & homelabs</span>
+            <span class="dot"></span>
+            <span>Shell + config-based</span>
+          </div>
+          <div class="card-actions">
+            <a href="https://ko-fi.com/s/9b510f7393" onclick="alert('Link coming soon.'); return false;">
+              🔜 View product page
+            </a>
+            <span class="tools-note">Will link to Ko-fi / Gumroad.</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-tag-row">
+            <span class="card-tag">Logs · Cross-platform</span>
+            <span class="card-badge">In development</span>
+          </div>
+          <h3 class="card-title">Smart Log Analyzer</h3>
+          <p class="card-excerpt">
+            A desktop tool to scan Linux & Windows logs, surface suspicious
+            entries, and export clean reports for ops teams.
+          </p>
+          <div class="card-meta">
+            <span>Focus: high-signal lines only</span>
+            <span class="dot"></span>
+            <span>GUI + exports</span>
+          </div>
+          <div class="card-actions">
+            <a href="#" onclick="alert('Link coming soon.'); return false;">
+              🔜 View product page
+            </a>
+            <span class="tools-note">Bundle planned for NextGen Threat.</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-tag-row">
+            <span class="card-tag">Linux · Hardening</span>
+            <span class="card-badge">Planned</span>
+          </div>
+          <h3 class="card-title">Linux Hardening Starter Pack</h3>
+          <p class="card-excerpt">
+            Opinionated checklist, scripts, and baseline configs to treat every
+            new server as “already compromised” from Day 1.
+          </p>
+          <div class="card-meta">
+            <span>For admins & security teams</span>
+            <span class="dot"></span>
+            <span>Checklists + scripts</span>
+          </div>
+          <div class="card-actions">
+            <a href="#" onclick="alert('Link coming soon.'); return false;">
+              🔜 View product page
+            </a>
+            <span class="tools-note">Great upsell from your blogs.</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="section">
+      <div class="section-header">
+        <div>
+          <div class="section-title">
+            <span class="marker"></span>
+            <span>About Faruk & NextGen Threat</span>
+          </div>
+          <div class="section-sub">
+            Real-world security from someone who lives in the logs daily.
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <p class="card-excerpt" style="margin-bottom: 6px;">
+          I’m <strong>Faruk Ahmed</strong>, an information security analyst
+          focused on Linux security, DLP, and automation. I’ve worked with
+          enterprise stacks like Forcepoint, CrowdStrike, QRadar, and FireEye
+          to protect real production systems.
+        </p>
+        <p class="card-excerpt" style="margin-bottom: 6px;">
+          NextGen Threat is where I turn that experience into practical
+          “security habits”, scripts, and tools — so admins don’t have to wait
+          for a breach to tighten their defenses.
+        </p>
+        <p class="card-excerpt">
+          If you manage Linux or Windows servers and want fewer surprises, my
+          goal is simple: help you see dangerous activity earlier and respond
+          faster, with less noise.
+        </p>
+        <div class="card-actions" style="margin-top: 10px;">
+          <a href="https://medium.com/@bornaly" target="_blank" rel="noopener">
+            ✍️ Follow me on Medium
+          </a>
+          <a href="mailto:bornaly@gmail.com">
+            📩 Contact for collaboration
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div>
+        © <span id="year"></span> NextGen Threat. All rights reserved.
+      </div>
+      <div class="footer-links">
+        <span class="label-pill">Find me here:</span>
+        <a href="https://medium.com/@bornaly" target="_blank" rel="noopener">Medium</a>
+        <a href="https://www.linkedin.com/in/bornaly/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://x.com/cyberwebpen" target="_blank" rel="noopener">X (Twitter)</a>
+        <a href="https://www.facebook.com/nextgenthreat/" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://discord.gg/FkjR2WFs" target="_blank" rel="noopener">Discord</a>
+      </div>
+    </footer>
+  </div>
+
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const grid = document.getElementById('blog-list');
+      if (!grid) return;
+
+      const cards = Array.from(grid.querySelectorAll('.blog-card'));
+      const LOAD_SIZE = 8;
+
+      if (cards.length <= LOAD_SIZE) {
+        return; // nothing to paginate
+      }
+
+      // Initially show only first LOAD_SIZE
+      cards.forEach(function (card, index) {
+        card.style.display = index < LOAD_SIZE ? '' : 'none';
+      });
+
+      let visibleCount = LOAD_SIZE;
+
+      // Create wrapper + button
+      const wrapper = document.createElement('div');
+      wrapper.className = 'load-more-wrapper';
+
+      const button = document.createElement('button');
+      button.className = 'load-more-button';
+      button.type = 'button';
+      button.textContent = 'Load 8 more posts';
+
+      button.addEventListener('click', function () {
+        const nextVisible = visibleCount + LOAD_SIZE;
+        cards.slice(visibleCount, nextVisible).forEach(function (card) {
+          card.style.display = '';
+        });
+        visibleCount = nextVisible;
+
+        if (visibleCount >= cards.length) {
+          button.style.display = 'none';
+        }
+      });
+
+      wrapper.appendChild(button);
+
+      // Insert after the grid container
+      if (grid.parentNode) {
+        grid.parentNode.appendChild(wrapper);
+      } else {
+        document.body.appendChild(wrapper);
+      }
+    });
+  </script>
+
+
 </body>
 </html>
-
-
-
