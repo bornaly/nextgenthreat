@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NextGen Threat — Blog Archive</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Browse the full archive of Linux, cybersecurity, and automation blogs from NextGen Threat."
+  />
+  <style>
+    :root {
+      --bg: #020617;
+      --panel: rgba(15, 23, 42, 0.98);
+      --border: rgba(148, 163, 184, 0.35);
+      --text-main: #e5e7eb;
+      --text-soft: #9ca3af;
+      --accent: #6366f1;
+      --accent-soft: rgba(99, 102, 241, 0.25);
+      --radius-xl: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #0b1120 0, #020617 45%, #000 100%);
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #38bdf8 0, #1d4ed8 40%, #020617 82%);
+      box-shadow: 0 0 28px rgba(56, 189, 248, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+      color: #e5e7eb;
+      letter-spacing: 0.08em;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand-text-title {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .brand-text-sub {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    nav a {
+      font-size: 12px;
+      color: var(--text-soft);
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+    }
+
+    nav a:hover {
+      border-color: rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .hero {
+      border-radius: var(--radius-xl);
+      padding: 18px 16px 16px;
+      background: linear-gradient(
+        135deg,
+        rgba(15, 23, 42, 0.98),
+        rgba(15, 23, 42, 0.96)
+      );
+      border: 1px solid var(--border);
+      box-shadow: 0 22px 60px rgba(15, 23, 42, 0.9);
+    }
+
+    .hero-title {
+      margin: 0 0 6px;
+      font-size: 19px;
+      letter-spacing: 0.04em;
+    }
+
+    .hero-subtitle {
+      margin: 0;
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .hero-meta {
+      margin-top: 10px;
+      font-size: 11px;
+      color: #a5b4fc;
+    }
+
+    .controls {
+      border-radius: 18px;
+      padding: 12px 12px 14px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .search-box {
+      flex: 1 1 220px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+    }
+
+    .search-box span {
+      font-size: 13px;
+      color: var(--text-soft);
+    }
+
+    .search-box input {
+      flex: 1;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: var(--text-main);
+      font-size: 12px;
+    }
+
+    .search-box input::placeholder {
+      color: rgba(148, 163, 184, 0.7);
+    }
+
+    .info-pill {
+      font-size: 11px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--text-soft);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .archive-list {
+      border-radius: var(--radius-xl);
+      padding: 12px 12px 10px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      box-shadow: 0 18px 50px rgba(15, 23, 42, 0.9);
+    }
+
+    .group-header {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #9ca3af;
+      margin: 8px 0 4px;
+      padding-top: 6px;
+      border-top: 1px solid rgba(31, 41, 55, 0.8);
+    }
+
+    .archive-item {
+      padding: 8px 4px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.1s ease,
+        box-shadow 0.15s ease;
+    }
+
+    .archive-item:hover {
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.16), transparent 55%),
+        rgba(15, 23, 42, 0.96);
+      transform: translateY(-1px);
+      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.9);
+    }
+
+    .archive-title {
+      font-size: 13px;
+      color: #e5e7eb;
+      text-decoration: none;
+    }
+
+    .archive-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .meta-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.9);
+    }
+
+    .meta-tag {
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      font-size: 10px;
+      color: #cbd5f5;
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .load-more-wrapper {
+      margin-top: 12px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .load-more-btn {
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: linear-gradient(
+        135deg,
+        rgba(15, 23, 42, 0.95),
+        rgba(30, 64, 175, 0.75)
+      );
+      color: #e5e7eb;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 12px 35px rgba(30, 64, 175, 0.5);
+      transition: background 0.2s ease, transform 0.1s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .load-more-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 50px rgba(30, 64, 175, 0.7);
+    }
+
+    footer {
+      margin-top: 18px;
+      font-size: 11px;
+      color: var(--text-soft);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    footer a {
+      color: #93c5fd;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 640px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .page {
+        padding-inline: 14px;
+      }
+      .hero {
+        padding-inline: 14px;
+      }
+      .controls {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .info-pill {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand">
+        <div class="brand-logo">N</div>
+        <div class="brand-text">
+          <div class="brand-text-title">NextGen Threat</div>
+          <div class="brand-text-sub">Full blog archive</div>
+        </div>
+      </div>
+      <nav>
+        <a href="index.html">← Back to latest</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1 class="hero-title">Browse the complete archive</h1>
+        <p class="hero-subtitle">
+          Every Linux, security, and automation post — in one place. Use search
+          to jump straight to what you need.
+        </p>
+        <div class="hero-meta" id="archive-summary">
+          Loading posts from home page…
+        </div>
+      </section>
+
+      <section class="controls">
+        <div class="search-box">
+          <span>🔎</span>
+          <input
+            id="search"
+            type="text"
+            placeholder="Search by title, topic, or keyword…"
+          />
+        </div>
+        <div class="info-pill">
+          Tip: search for “SSH”, “hardening”, “habit”, “Windows”, “logs”… 
+        </div>
+      </section>
+
+      <section class="archive-list" id="archive-list">
+        <!-- Archive items will be injected here -->
+      </section>
+
+      <div class="load-more-wrapper">
+        <button id="archive-load-more" class="load-more-btn">
+          Load more posts
+        </button>
+      </div>
+    </main>
+
+    <footer>
+      <span>© <span id="year"></span> NextGen Threat.</span>
+      <span>
+        <a href="https://medium.com/@bornaly" target="_blank" rel="noopener"
+          >Medium</a
+        >
+        ·
+        <a href="https://x.com/cyberwebpen" target="_blank" rel="noopener"
+          >X (Twitter)</a
+        >
+      </span>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const PAGE_SIZE = 30;
+    let allPosts = [];
+    let filteredPosts = [];
+    let offset = 0;
+
+    const listEl = document.getElementById("archive-list");
+    const summaryEl = document.getElementById("archive-summary");
+    const searchInput = document.getElementById("search");
+    const loadMoreBtn = document.getElementById("archive-load-more");
+
+    function renderChunk(reset = false) {
+      if (!listEl) return;
+
+      if (reset) {
+        listEl.innerHTML = "";
+        offset = 0;
+      }
+
+      const slice = filteredPosts.slice(offset, offset + PAGE_SIZE);
+      let currentGroup = "";
+
+      slice.forEach((post) => {
+        const groupLabel = post.groupLabel || "Other";
+
+        if (groupLabel !== currentGroup) {
+          currentGroup = groupLabel;
+          const groupHeader = document.createElement("div");
+          groupHeader.className = "group-header";
+          groupHeader.textContent = groupLabel;
+          listEl.appendChild(groupHeader);
+        }
+
+        const item = document.createElement("div");
+        item.className = "archive-item";
+
+        item.addEventListener("click", () => {
+          if (post.url) {
+            window.open(post.url, "_blank", "noopener");
+          }
+        });
+
+        item.innerHTML = `
+          <div class="archive-title">${post.title}</div>
+          <div class="archive-meta-row">
+            ${post.date ? `<span>${post.date}</span>` : ""}
+            ${
+              post.date && post.readTime
+                ? '<span class="meta-dot"></span>'
+                : ""
+            }
+            ${post.readTime ? `<span>${post.readTime}</span>` : ""}
+            ${
+              post.tag
+                ? `<span class="meta-dot"></span><span class="meta-tag">${post.tag}</span>`
+                : ""
+            }
+          </div>
+        `;
+
+        listEl.appendChild(item);
+      });
+
+      offset += slice.length;
+
+      if (loadMoreBtn) {
+        if (offset >= filteredPosts.length) {
+          loadMoreBtn.style.display = "none";
+        } else {
+          loadMoreBtn.style.display = "inline-flex";
+        }
+      }
+    }
+
+    function applyFilter() {
+      const q = (searchInput.value || "").toLowerCase().trim();
+
+      if (!q) {
+        filteredPosts = [...allPosts];
+      } else {
+        filteredPosts = allPosts.filter((post) => {
+          const haystack = (
+            post.title +
+            " " +
+            (post.date || "") +
+            " " +
+            (post.tag || "")
+          ).toLowerCase();
+          return haystack.includes(q);
+        });
+      }
+
+      renderChunk(true);
+
+      if (summaryEl) {
+        summaryEl.textContent =
+          filteredPosts.length === allPosts.length && !q
+            ? `Loaded ${allPosts.length} posts from the main site.`
+            : `Showing ${filteredPosts.length} of ${allPosts.length} posts.`;
+      }
+    }
+
+    async function loadFromIndex() {
+      try {
+        const res = await fetch("index.html", { cache: "no-store" });
+        const html = await res.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+
+        const cards = Array.from(
+          doc.querySelectorAll("#blog-data-source .blog-card")
+        );
+
+        const posts = cards.map((card) => {
+          const link = card.querySelector("a");
+          const titleEl = card.querySelector(".blog-card-title");
+          const metaEl = card.querySelector(".blog-card-meta");
+
+          const title = titleEl ? titleEl.textContent.trim() : "";
+          const url = link ? link.href : "#";
+
+          let date = "";
+          let readTime = "";
+          if (metaEl) {
+            const metaText = metaEl.textContent.trim();
+            const parts = metaText.split("•").map((p) => p.trim());
+            if (parts.length === 1) {
+              readTime = parts[0];
+            } else if (parts.length >= 2) {
+              date = parts[0];
+              readTime = parts[1];
+            }
+          }
+
+          const lowerTitle = title.toLowerCase();
+          let tag = "General";
+          if (lowerTitle.includes("linux")) tag = "Linux";
+          else if (lowerTitle.includes("windows")) tag = "Windows";
+          else if (
+            lowerTitle.includes("bash") ||
+            lowerTitle.includes("script") ||
+            lowerTitle.includes("automation")
+          )
+            tag = "Automation";
+
+          // Simple group label using date prefix
+          let groupLabel = "Other";
+          if (date) {
+            groupLabel = date;
+          }
+
+          return { title, url, date, readTime, tag, groupLabel };
+        });
+
+        // Newest first
+        allPosts = posts.reverse();
+        filteredPosts = [...allPosts];
+
+        if (summaryEl) {
+          summaryEl.textContent = `Loaded ${allPosts.length} posts from the main site.`;
+        }
+
+        renderChunk(true);
+      } catch (err) {
+        console.error(err);
+        if (summaryEl) {
+          summaryEl.textContent =
+            "Could not load posts automatically. Make sure index.html is deployed with blog data.";
+        }
+      }
+    }
+
+    searchInput.addEventListener("input", () => {
+      applyFilter();
+    });
+
+    if (loadMoreBtn) {
+      loadMoreBtn.addEventListener("click", () => {
+        renderChunk(false);
+      });
+    }
+
+    loadFromIndex();
+  </script>
+</body>
+</html>
