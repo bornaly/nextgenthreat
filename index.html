@@ -657,6 +657,29 @@
                   0 0 0 1px rgba(148, 163, 184, 0.2);
       transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
     }
+
+.blog-end-message {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #9ca3af;
+  text-align: center;
+}
+
+.back-to-top-link {
+  margin-top: 1rem;
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #93c5fd;
+  text-decoration: none;
+  gap: 0.25rem;
+}
+
+.back-to-top-link:hover {
+  color: #bfdbfe;
+  text-decoration: underline;
+}
+
     .load-more-button:hover {
       transform: translateY(-1px);
       filter: brightness(1.05);
@@ -5493,6 +5516,15 @@ Thanks!</h3>
         </article>
 <!-- BLOG-CARDS-END -->
       </div>
+      <div class="blog-footer-controls">
+        <button id="load-more-button" class="load-more-button">
+          Load 8 more posts
+        </button>
+        <div id="blog-end-message" class="blog-end-message" style="display:none;">
+          You’ve reached the end of the blog list.
+        </div>
+        <a href="#top" class="back-to-top-link">↑ Back to top</a>
+      </div>
     </section>
 
     <!-- TOOLS SECTION -->
@@ -5690,6 +5722,48 @@ Thanks!</h3>
     });
   </script>
 
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const allCards = Array.from(document.querySelectorAll('#blog-list .blog-card'));
+  const LOAD_STEP = 8;
+  let visibleCount = Math.min(LOAD_STEP, allCards.length);
+
+  function updateVisible() {
+    allCards.forEach(function (card, idx) {
+      if (idx < visibleCount) {
+        card.style.display = "";
+      } else {
+        card.style.display = "none";
+      }
+    });
+    const loadMoreBtn = document.getElementById("load-more-button");
+    if (!loadMoreBtn) return;
+    if (visibleCount >= allCards.length) {
+      loadMoreBtn.style.display = "none";
+    } else {
+      loadMoreBtn.style.display = "inline-flex";
+    }
+  }
+
+  const loadMoreBtn = document.getElementById("load-more-button");
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener("click", function () {
+      visibleCount = Math.min(visibleCount + LOAD_STEP, allCards.length);
+      updateVisible();
+      if (visibleCount >= allCards.length) {
+        const endMsg = document.getElementById("blog-end-message");
+        if (endMsg) {
+          endMsg.style.display = "block";
+        }
+      }
+    });
+  }
+
+  updateVisible();
+});
+</script>
 
 
 <!-- BLOG_CARDS_START -->
