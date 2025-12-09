@@ -1,90 +1,58 @@
-// main.js – NextGen Threat front-end logic
-// Handles: dynamic year, blog card pagination, filters, and Load 8 more posts
+// ---- Dynamic year ----
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-(function () {
-  "use strict";
+    // ---- Blog data (EDIT THIS ONLY) ----
+    // Add / remove posts here. Only previews + Medium links, NOT full content.
+            const blogPosts = [
 
-  const yearSpan = document.getElementById("year");
-  if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+    ];
 
-  const POSTS_PER_PAGE = 8;
-  let visibleCount = POSTS_PER_PAGE;
-  let activeFilter = "all";
+    function renderBlogs(filter = "all") {
+      const container = document.getElementById("blog-list");
+      container.innerHTML = "";
 
-  const blogContainer = document.getElementById("blog-list");
-  const loadMoreBtn = document.getElementById("load-more");
-  const filterButtons = document.querySelectorAll("#blog-filters button");
+      const filtered = blogPosts.filter(post =>
+        filter === "all" ? true : post.tag === filter
+      );
 
-  if (!blogContainer) return;
+      filtered.forEach(post => {
+        const card = document.createElement("article");
+        card.className = "card";
 
-  const allCards = Array.from(blogContainer.querySelectorAll(".blog-card"));
+        card.innerHTML = `
+          <div class="card-tag-row">
+            <span class="card-tag">${post.tag}</span>
+            ${post.highlight ? '<span class="card-badge">Top pick</span>' : ""}
+          </div>
+          <h3 class="card-title">${post.title}</h3>
+          <p class="card-excerpt">${post.preview}</p>
+          <div class="card-meta">
+            <span>${post.date}</span>
+            <span class="dot"></span>
+            <span>${post.readTime}</span>
+          </div>
+          <div class="card-actions">
+            <a href="${post.url}" target="_blank" rel="noopener">
+              🔗 Read on Medium
+            </a>
+            <span>Opens on Medium (login may be required).</span>
+          </div>
+        `;
 
-  const posts = allCards.map((card) => {
-    let tag = card.getAttribute("data-tag") || "";
-    if (!tag) {
-      const badge = card.querySelector(".blog-card-badge");
-      if (badge) tag = badge.textContent.trim();
-    }
-    const lower = tag.toLowerCase();
-    if (lower.includes("linux")) tag = "Linux";
-    else if (lower.includes("windows")) tag = "Windows";
-    else if (lower.includes("automation")) tag = "Automation";
-    else if (!tag) tag = "Security";
-    return { tag, card };
-  });
-
-  function getFiltered() {
-    if (activeFilter === "all") return posts;
-    return posts.filter((p) => p.tag === activeFilter);
-  }
-
-  function render() {
-    const filtered = getFiltered();
-    const toShow = filtered.slice(0, visibleCount);
-
-    blogContainer.innerHTML = "";
-    toShow.forEach((p) => blogContainer.appendChild(p.card));
-
-    if (loadMoreBtn) {
-      loadMoreBtn.style.display = visibleCount >= filtered.length ? "none" : "inline-flex";
-    }
-  }
-
-  function setFilter(value) {
-    activeFilter = value;
-    visibleCount = POSTS_PER_PAGE;
-    render();
-    filterButtons.forEach((btn) => {
-      const val = btn.getAttribute("data-filter") || "all";
-      btn.classList.toggle("active", val === value);
-    });
-  }
-
-  function initFilters() {
-    filterButtons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        setFilter(btn.getAttribute("data-filter") || "all");
+        container.appendChild(card);
       });
+    }
+
+    // Initial render
+    renderBlogs("all");
+
+    // Filter buttons
+    const filterContainer = document.getElementById("blog-filters");
+    filterContainer.addEventListener("click", (e) => {
+      if (e.target.tagName.toLowerCase() === "button") {
+        const filter = e.target.getAttribute("data-filter");
+        filterContainer.querySelectorAll("button").forEach(btn => btn.classList.remove("active"));
+        e.target.classList.add("active");
+        renderBlogs(filter === "all" ? "all" : filter);
+      }
     });
-  }
-
-  function initLoadMore() {
-    if (!loadMoreBtn) return;
-    loadMoreBtn.addEventListener("click", () => {
-      visibleCount += POSTS_PER_PAGE;
-      render();
-    });
-  }
-
-  function init() {
-    initFilters();
-    initLoadMore();
-    setFilter("all");
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
-})();
