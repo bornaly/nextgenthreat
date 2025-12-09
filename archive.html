@@ -2,586 +2,1229 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>NextGen Threat — Blog Archive</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta
-    name="description"
-    content="Browse the full archive of Linux, cybersecurity, and automation blogs from NextGen Threat."
-  />
-  <style>
-    :root {
-      --bg: #020617;
-      --panel: rgba(15, 23, 42, 0.98);
-      --border: rgba(148, 163, 184, 0.35);
-      --text-main: #e5e7eb;
-      --text-soft: #9ca3af;
-      --accent: #6366f1;
-      --accent-soft: rgba(99, 102, 241, 0.25);
-      --radius-xl: 24px;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #0b1120 0, #020617 45%, #000 100%);
-      color: var(--text-main);
-      -webkit-font-smoothing: antialiased;
-    }
-
-    .page {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 24px 16px 40px;
-    }
-
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 22px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .brand-logo {
-      width: 30px;
-      height: 30px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 30%, #38bdf8 0, #1d4ed8 40%, #020617 82%);
-      box-shadow: 0 0 28px rgba(56, 189, 248, 0.6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 14px;
-      color: #e5e7eb;
-      letter-spacing: 0.08em;
-    }
-
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .brand-text-title {
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .brand-text-sub {
-      font-size: 11px;
-      color: var(--text-soft);
-    }
-
-    nav a {
-      font-size: 12px;
-      color: var(--text-soft);
-      text-decoration: none;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
-    }
-
-    nav a:hover {
-      border-color: rgba(148, 163, 184, 0.5);
-      background: rgba(15, 23, 42, 0.9);
-      color: #e5e7eb;
-    }
-
-    main {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-
-    .hero {
-      border-radius: var(--radius-xl);
-      padding: 18px 16px 16px;
-      background: linear-gradient(
-        135deg,
-        rgba(15, 23, 42, 0.98),
-        rgba(15, 23, 42, 0.96)
-      );
-      border: 1px solid var(--border);
-      box-shadow: 0 22px 60px rgba(15, 23, 42, 0.9);
-    }
-
-    .hero-title {
-      margin: 0 0 6px;
-      font-size: 19px;
-      letter-spacing: 0.04em;
-    }
-
-    .hero-subtitle {
-      margin: 0;
-      font-size: 12px;
-      color: var(--text-soft);
-    }
-
-    .hero-meta {
-      margin-top: 10px;
-      font-size: 11px;
-      color: #a5b4fc;
-    }
-
-    .controls {
-      border-radius: 18px;
-      padding: 12px 12px 14px;
-      background: rgba(15, 23, 42, 0.96);
-      border: 1px solid var(--border);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .search-box {
-      flex: 1 1 220px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-    }
-
-    .search-box span {
-      font-size: 13px;
-      color: var(--text-soft);
-    }
-
-    .search-box input {
-      flex: 1;
-      border: none;
-      outline: none;
-      background: transparent;
-      color: var(--text-main);
-      font-size: 12px;
-    }
-
-    .search-box input::placeholder {
-      color: rgba(148, 163, 184, 0.7);
-    }
-
-    .info-pill {
-      font-size: 11px;
-      padding: 5px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      color: var(--text-soft);
-      background: rgba(15, 23, 42, 0.9);
-    }
-
-    .archive-list {
-      border-radius: var(--radius-xl);
-      padding: 12px 12px 10px;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      box-shadow: 0 18px 50px rgba(15, 23, 42, 0.9);
-    }
-
-    .group-header {
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: #9ca3af;
-      margin: 8px 0 4px;
-      padding-top: 6px;
-      border-top: 1px solid rgba(31, 41, 55, 0.8);
-    }
-
-    .archive-item {
-      padding: 8px 4px;
-      border-radius: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      cursor: pointer;
-      transition: background 0.15s ease, transform 0.1s ease,
-        box-shadow 0.15s ease;
-    }
-
-    .archive-item:hover {
-      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.16), transparent 55%),
-        rgba(15, 23, 42, 0.96);
-      transform: translateY(-1px);
-      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.9);
-    }
-
-    .archive-title {
-      font-size: 13px;
-      color: #e5e7eb;
-      text-decoration: none;
-    }
-
-    .archive-meta-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px;
-      font-size: 11px;
-      color: var(--text-soft);
-    }
-
-    .meta-dot {
-      width: 3px;
-      height: 3px;
-      border-radius: 999px;
-      background: rgba(148, 163, 184, 0.9);
-    }
-
-    .meta-tag {
-      padding: 2px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      font-size: 10px;
-      color: #cbd5f5;
-      background: rgba(15, 23, 42, 0.9);
-    }
-
-    .load-more-wrapper {
-      margin-top: 12px;
-      display: flex;
-      justify-content: center;
-    }
-
-    .load-more-btn {
-      padding: 8px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: linear-gradient(
-        135deg,
-        rgba(15, 23, 42, 0.95),
-        rgba(30, 64, 175, 0.75)
-      );
-      color: #e5e7eb;
-      font-size: 12px;
-      letter-spacing: 0.04em;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 12px 35px rgba(30, 64, 175, 0.5);
-      transition: background 0.2s ease, transform 0.1s ease,
-        box-shadow 0.2s ease;
-    }
-
-    .load-more-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 18px 50px rgba(30, 64, 175, 0.7);
-    }
-
-    footer {
-      margin-top: 18px;
-      font-size: 11px;
-      color: var(--text-soft);
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-    }
-
-    footer a {
-      color: #93c5fd;
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    @media (max-width: 640px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .page {
-        padding-inline: 14px;
-      }
-      .hero {
-        padding-inline: 14px;
-      }
-      .controls {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .info-pill {
-        text-align: center;
-      }
-    }
-  </style>
+  <title>NextGenThreat – Blog Archive</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
-  <div class="page">
-    <header>
-      <div class="brand">
-        <div class="brand-logo">N</div>
-        <div class="brand-text">
-          <div class="brand-text-title">NextGen Threat</div>
-          <div class="brand-text-sub">Full blog archive</div>
-        </div>
-      </div>
-      <nav>
-        <a href="index.html">← Back to latest</a>
-      </nav>
+  <main class="page">
+    <header class="page-header">
+      <h1>NextGenThreat – Blog Archive</h1>
+      <p>All published blogs in date order (newest first).</p>
+      <p><a href="index.html">&larr; Back to main page</a></p>
     </header>
 
-    <main>
-      <section class="hero">
-        <h1 class="hero-title">Browse the complete archive</h1>
-        <p class="hero-subtitle">
-          Every Linux, security, and automation post — in one place. Use search
-          to jump straight to what you need.
-        </p>
-        <div class="hero-meta" id="archive-summary">
-          Loading posts from home page…
-        </div>
-      </section>
+    <section class="archive-table-section">
+      <table class="archive-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Title</th>
+            <th>Read time</th>
+          </tr>
+        </thead>
+        <tbody>
+      <tr>
+        <td>2025-12-08</td>
+        <td><a href="posts/draft_Linux-Security-Habit--2---The-Hidden-File-That-Tells-You-If-Someone-Touched-Your-System-12bceb376b29.html" target="_blank" rel="noopener noreferrer">Linux Security Habit #2 — The Hidden File That Tells You If Someone Touched Your System</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-12-08</td>
+        <td><a href="posts/draft_The-20-Hour-Rule--How-to-Learn-Anything-Quickly-1095367be467.html" target="_blank" rel="noopener noreferrer">The 20-Hour Rule: How to Learn Anything Quickly</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-12-08</td>
+        <td><a href="posts/draft_The-Critical-Link-Between-Technology-Management-and-Cybersecurity-in-Today-s-Digital-World-a97bfbdcdb50.html" target="_blank" rel="noopener noreferrer">The Critical Link Between Technology Management and Cybersecurity in Today’s Digital World</a></td>
+        <td>4 min</td>
+      </tr>
+      <tr>
+        <td>2025-12-08</td>
+        <td><a href="posts/draft_The-Hidden-Linux-Timer-That-Quietly-Breaks-Servers--Most-Admins-Never-Check-This--3688634ce359.html" target="_blank" rel="noopener noreferrer">The Hidden Linux Timer That Quietly Breaks Servers (Most Admins Never Check This)</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-12-08</td>
+        <td><a href="posts/draft_The-Linux-Log-Check-That-Saved-Me-from-a-Silent-Outage--Every-Admin-Should-Know-This--d71697bb9086.html" target="_blank" rel="noopener noreferrer">The Linux Log Check That Saved Me from a Silent Outage (Every Admin Should Know This)</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-12-08</td>
+        <td><a href="posts/draft_The-One-AWS-Setting-That-Could-Leak-Your-S3-Data---And-How-to-Lock-It-Down-in-60-Seconds-8047554157b7.html" target="_blank" rel="noopener noreferrer">The One AWS Setting That Could Leak Your S3 Data — And How to Lock It Down in 60 Seconds</a></td>
+        <td>4 min</td>
+      </tr>
+      <tr>
+        <td>2025-12-08</td>
+        <td><a href="posts/draft_The-One-Linux-Security-Habit-That-Saved-Me-From-a-Silent-Breach-e4dfbc267b7c.html" target="_blank" rel="noopener noreferrer">The One Linux Security Habit That Saved Me From a Silent Breach</a></td>
+        <td>4 min</td>
+      </tr>
+      <tr>
+        <td>2025-12-08</td>
+        <td><a href="posts/draft_The-Small-Log-Message-That-Nearly-Took-Down-My-System--And-Why-Engineers-Should-Treat-Logs-Like-a--4650838a4337.html" target="_blank" rel="noopener noreferrer">The Small Log Message That Nearly Took Down My System (And Why Engineers Should Treat Logs Like a…</a></td>
+        <td>5 min</td>
+      </tr>
+      <tr>
+        <td>2025-12-08</td>
+        <td><a href="posts/draft_Understanding-the-Trojan-Horse--Lessons-for-Modern-Cybersecurity-Practices-34ddc34bf8f0.html" target="_blank" rel="noopener noreferrer">Understanding the Trojan Horse: Lessons for Modern Cybersecurity Practices</a></td>
+        <td>4 min</td>
+      </tr>
+      <tr>
+        <td>2025-12-06</td>
+        <td><a href="posts/2025-12-06_Good-point--49c58663d5ee.html" target="_blank" rel="noopener noreferrer">Good point!</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-12-06</td>
+        <td><a href="posts/2025-12-06_Linux-Security-Habit--1---The-One-Command-I-Run-Before-Touching-Any-Server-753c57e9dac3.html" target="_blank" rel="noopener noreferrer">Linux Security Habit #1 — The One Command I Run Before Touching Any Server</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-12-05</td>
+        <td><a href="posts/2025-12-05_Great-question---the-key-is-to-avoid-storing-a-static-Vault-token-entirely--92af2c60bc69.html" target="_blank" rel="noopener noreferrer">Great question — the key is to avoid storing a static Vault token entirely.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-12-05</td>
+        <td><a href="posts/2025-12-05_Great-tip--Rob---thanks-for-sharing-this--2e71e0af0376.html" target="_blank" rel="noopener noreferrer">Great tip, Rob — thanks for sharing this!</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-12-05</td>
+        <td><a href="posts/2025-12-05_SSH-IDS---The-Lightweight-Linux-Security-Tool-I-Built-to-Detect-SSH-Attacks-in-Real-Time-3c1a1cf173b7.html" target="_blank" rel="noopener noreferrer">SSH-IDS — The Lightweight Linux Security Tool I Built to Detect SSH Attacks in Real Time</a></td>
+        <td>4 min</td>
+      </tr>
+      <tr>
+        <td>2025-12-05</td>
+        <td><a href="posts/2025-12-05_Thanks--Glad-you-found-it-useful---it-s-one-of-those-simple-commands-that-catches-things-most-tools--021758a85607.html" target="_blank" rel="noopener noreferrer">Thanks! Glad you found it useful — it’s one of those simple commands that catches things most tools…</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-12-05</td>
+        <td><a href="posts/2025-12-05_Thanks-Eric---appreciate-you-bringing-that-up--baade16567b0.html" target="_blank" rel="noopener noreferrer">Thanks Eric - appreciate you bringing that up!</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-12-02</td>
+        <td><a href="posts/2025-12-02_How-I-Detect-Hidden-Linux-Malware-on-AWS-EC2---Without-Installing-Anything-a26f2166e9b8.html" target="_blank" rel="noopener noreferrer">How I Detect Hidden Linux Malware on AWS EC2 — Without Installing Anything</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-12-02</td>
+        <td><a href="posts/2025-12-02_The-One-Linux-Command-That-Reveals-a-Hidden-Hacker-Immediately--Most-Admins-Never-Use-It--a5306e090afc.html" target="_blank" rel="noopener noreferrer">The One Linux Command That Reveals a Hidden Hacker Immediately (Most Admins Never Use It)</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-12-01</td>
+        <td><a href="posts/2025-12-01_How-I-Lock-Down-IAM-Roles--My-Exact-Checklist--efb245ceba2b.html" target="_blank" rel="noopener noreferrer">How I Lock Down IAM Roles (My Exact Checklist)</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-11-28</td>
+        <td><a href="posts/2025-11-28_Why-I-Always-Disable-Direct-Root-Logins-on-Linux--And-How-It-Stops-Silent-Privilege-Abuse--1042670e3b75.html" target="_blank" rel="noopener noreferrer">Why I Always Disable Direct Root Logins on Linux (And How It Stops Silent Privilege Abuse)</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-11-25</td>
+        <td><a href="posts/2025-11-25_Why-I-Always-Disable-SSH-Agent-Forwarding-on-Linux--And-How-Attackers-Steal-Your-Keys-Through-It--52c52573fa2f.html" target="_blank" rel="noopener noreferrer">Why I Always Disable SSH Agent Forwarding on Linux (And How Attackers Steal Your Keys Through It)</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-11-21</td>
+        <td><a href="posts/2025-11-21_Why-I-Always-Disable-Unused-Network-Services-on-Servers--And-How-I-Hunt-for-Hidden-Listeners--2d09fc1284a4.html" target="_blank" rel="noopener noreferrer">Why I Always Disable Unused Network Services on Servers (And How I Hunt for Hidden Listeners)</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-11-18</td>
+        <td><a href="posts/2025-11-18_Why-I-Always-Limit-Sudo-Access-on-Linux--And-How-I-Audit-Who-Uses-It--f6c4d6aee1d4.html" target="_blank" rel="noopener noreferrer">Why I Always Limit Sudo Access on Linux (And How I Audit Who Uses It)</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-11-12</td>
+        <td><a href="posts/2025-11-12_Why-I-Always-Monitor-USB-Device-Activity-on-Servers--And-How-It-Exposes-Insider-Threats--0e496efc6420.html" target="_blank" rel="noopener noreferrer">Why I Always Monitor USB Device Activity on Servers (And How It Exposes Insider Threats)</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-11-10</td>
+        <td><a href="posts/2025-11-10_Why-I-Always-Block-Outdated-TLS-Versions-on-Servers--And-How-It-Prevents-Hidden-Attacks--8b1b25a70f1e.html" target="_blank" rel="noopener noreferrer">Why I Always Block Outdated TLS Versions on Servers (And How It Prevents Hidden Attacks)</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-11-05</td>
+        <td><a href="posts/2025-11-05_Why-I-Always-Check-for-Hidden-Reverse-Shells-on-My-Servers--And-How-You-Can-Too--596cf6cfed54.html" target="_blank" rel="noopener noreferrer">Why I Always Check for Hidden Reverse Shells on My Servers (And How You Can Too)</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-11-03</td>
+        <td><a href="posts/2025-11-03_Why-I-Always-Monitor-Outbound-Connections-on-Linux--And-What-They-Reveal--7a809476c971.html" target="_blank" rel="noopener noreferrer">Why I Always Monitor Outbound Connections on Linux (And What They Reveal)</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-10-29</td>
+        <td><a href="posts/2025-10-29_Why-I-Never-Leave-PowerShell-Logging-Disabled-on-Windows-Servers-368f35a86369.html" target="_blank" rel="noopener noreferrer">Why I Never Leave PowerShell Logging Disabled on Windows Servers</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-10-27</td>
+        <td><a href="posts/2025-10-27_Why-I-Always-Restrict-Outbound-DNS-on-Servers--and-How-It-Blocks-Data-Exfiltration--d81456c158d8.html" target="_blank" rel="noopener noreferrer">Why I Always Restrict Outbound DNS on Servers (and How It Blocks Data Exfiltration)</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-10-24</td>
+        <td><a href="posts/2025-10-24_Why-I-Never-Store-Passwords-in-Scripts--and-How-I-Secure-Automation-Instead--98bcf52af112.html" target="_blank" rel="noopener noreferrer">Why I Never Store Passwords in Scripts (and How I Secure Automation Instead)</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-10-22</td>
+        <td><a href="posts/2025-10-22_Why-I-Don-t-Allow-Direct-Internet-Access-from-Servers--and-How-I-Enforce-It--74553cbab6e4.html" target="_blank" rel="noopener noreferrer">Why I Don’t Allow Direct Internet Access from Servers (and How I Enforce It)</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-10-20</td>
+        <td><a href="posts/2025-10-20_Why-I-Disable-Unused-Linux-Capabilities--and-How-It-Prevents-Privilege-Escalation--015525cb2878.html" target="_blank" rel="noopener noreferrer">Why I Disable Unused Linux Capabilities (and How It Prevents Privilege Escalation)</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-10-18</td>
+        <td><a href="posts/2025-10-18_Why-I-Always-Verify-Linux-System-Binaries-After-an-Incident--and-How-I-Do-It--d98d31dc060b.html" target="_blank" rel="noopener noreferrer">Why I Always Verify Linux System Binaries After an Incident (and How I Do It)</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-10-16</td>
+        <td><a href="posts/2025-10-16_Why-I-Always-Use-Append-Only-Backups-on-Linux--And-How-I-Set-Them-Up--24376e2d81c4.html" target="_blank" rel="noopener noreferrer">Why I Always Use Append-Only Backups on Linux (And How I Set Them Up)</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-10-14</td>
+        <td><a href="posts/2025-10-14_Could-an-Attacker-Use-a-systemd-Timer-to-Run-Malicious-Code--f0b01ec8b292.html" target="_blank" rel="noopener noreferrer">Could an Attacker Use a systemd Timer to Run Malicious Code?</a></td>
+        <td>7 min</td>
+      </tr>
+      <tr>
+        <td>2025-10-14</td>
+        <td><a href="posts/2025-10-14_Great-point--Sascha---totally-agree-that-chattr-isn-t-a-silver-bullet--8167153af29d.html" target="_blank" rel="noopener noreferrer">Great point, Sascha — totally agree that chattr isn’t a silver bullet.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-10-11</td>
+        <td><a href="posts/2025-10-11_Why-I-Monitor--var-log-secure--and-Why-Most-Admins-Don-t--3a362b1ad415.html" target="_blank" rel="noopener noreferrer">Why I Monitor /var/log/secure (and Why Most Admins Don’t)</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-10-09</td>
+        <td><a href="posts/2025-10-09_---Haha-fair-point---sometimes-tech-experiments-get-a-bit-philosophical--Thanks-for-reading---51bff3a983e6.html" target="_blank" rel="noopener noreferrer">😂 Haha fair point - sometimes tech experiments get a bit philosophical. Thanks for reading!”</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-10-09</td>
+        <td><a href="posts/2025-10-09_Absolutely--couldn-t-agree-more--3ca7c712e38d.html" target="_blank" rel="noopener noreferrer">Absolutely, couldn’t agree more.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-10-09</td>
+        <td><a href="posts/2025-10-09_Great-suggestion---restic-is-indeed-a-powerful-alternative--0a01fa551e9a.html" target="_blank" rel="noopener noreferrer">Great suggestion - restic is indeed a powerful alternative.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-10-09</td>
+        <td><a href="posts/2025-10-09_Thanks-for-the-comment--Mghaight---great-question--d0eac57c7e23.html" target="_blank" rel="noopener noreferrer">Thanks for the comment, Mghaight - great question.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-10-09</td>
+        <td><a href="posts/2025-10-09_That-s-an-excellent-suggestion--Stefan---NBDE-with-Tang-and-Clevis-really-takes-LUKS-security-to--b24e1af553f6.html" target="_blank" rel="noopener noreferrer">That’s an excellent suggestion, Stefan - NBDE with Tang and Clevis really takes LUKS security to…</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-10-09</td>
+        <td><a href="posts/2025-10-09_Why-I-Audit-Cron-Jobs-on-Linux-Servers-Every-Month-12b8bfa6952c.html" target="_blank" rel="noopener noreferrer">Why I Audit Cron Jobs on Linux Servers Every Month</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-10-07</td>
+        <td><a href="posts/2025-10-07_Why-I-Always-Isolate-Critical-Services-with-systemd-Sandboxing-cde49b33ab59.html" target="_blank" rel="noopener noreferrer">Why I Always Isolate Critical Services with systemd Sandboxing</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-10-06</td>
+        <td><a href="posts/2025-10-06_Why-I-Disable-Core-Dumps-on-Linux-Servers--And-What-I-Do-Instead--ebdeaebcf08d.html" target="_blank" rel="noopener noreferrer">Why I Disable Core Dumps on Linux Servers (And What I Do Instead)</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-10-03</td>
+        <td><a href="posts/2025-10-03_Why-I-Always-Secure-GRUB-on-Linux-Servers-Before-Going-Live-387144fcf006.html" target="_blank" rel="noopener noreferrer">Why I Always Secure GRUB on Linux Servers Before Going Live</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-10-01</td>
+        <td><a href="posts/2025-10-01_Why-I-Never-Leave-Linux-Servers-Without-Automatic-Security-Updates-2a941f68d5e7.html" target="_blank" rel="noopener noreferrer">Why I Never Leave Linux Servers Without Automatic Security Updates</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-29</td>
+        <td><a href="posts/2025-09-29_Why-I-Don-t-Trust-Default-Kernel-Parameters-on-Linux-Servers-879b28d3543f.html" target="_blank" rel="noopener noreferrer">Why I Don’t Trust Default Kernel Parameters on Linux Servers</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-25</td>
+        <td><a href="posts/2025-09-25_Why-I-Always-Verify-Linux-Packages-with-GPG-Before-Installing-66acc5070ead.html" target="_blank" rel="noopener noreferrer">Why I Always Verify Linux Packages with GPG Before Installing</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-24</td>
+        <td><a href="posts/2025-09-24_Good-point----using-rsync--x-is-a-cleaner-way-to-avoid-crossing-into--proc---sys--and-other-mounts--2d9d3567c536.html" target="_blank" rel="noopener noreferrer">Good point 👍 using rsync -x is a cleaner way to avoid crossing into /proc, /sys, and other mounts.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-24</td>
+        <td><a href="posts/2025-09-24_I-Asked-My-Linux-Server-to-Predict-My-Death--The-Result-Froze-Me-582fd72ee980.html" target="_blank" rel="noopener noreferrer">I Asked My Linux Server to Predict My Death. The Result Froze Me</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-23</td>
+        <td><a href="posts/2025-09-23_Good-thought---in-this-case--the-break-in-wasn-t-via-SSH-keys-but-a-kernel-level-rootkit-that--bdb31538bad3.html" target="_blank" rel="noopener noreferrer">Good thought — in this case, the break-in wasn’t via SSH keys but a kernel-level rootkit that…</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-23</td>
+        <td><a href="posts/2025-09-23_Why-I-Encrypt-Linux-Disks-with-LUKS--Even-on-Servers-in-the-Data-Center--515448f3173b.html" target="_blank" rel="noopener noreferrer">Why I Encrypt Linux Disks with LUKS (Even on Servers in the Data Center)</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-22</td>
+        <td><a href="posts/2025-09-22_Thanks-Nathan---that-s-a-great-resource--55c55fd0fbff.html" target="_blank" rel="noopener noreferrer">Thanks Nathan — that’s a great resource!</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-21</td>
+        <td><a href="posts/2025-09-21_Why-I-Use-Cold-Backups-Instead-of-Relying-Only-on-Snapshots-a4c22c6c4a50.html" target="_blank" rel="noopener noreferrer">Why I Use Cold Backups Instead of Relying Only on Snapshots</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_----Thanks-Brendan--Glad-it-resonated----afa7466c6dac.html" target="_blank" rel="noopener noreferrer">🙏⚡ Thanks Brendan! Glad it resonated 💪</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_Absolutely----Changing-SSH-port-reduces-noise--and-separate-key-pairs-per-device-is-a-solid-hygiene--a792a3e221d6.html" target="_blank" rel="noopener noreferrer">Absolutely 👍 Changing SSH port reduces noise, and separate key pairs per device is a solid hygiene…</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_Absolutely----pairing-disabled-root-login-with-hardware-backed-keys-like-YubiKeys-makes-SSH--aa73edc426a8.html" target="_blank" rel="noopener noreferrer">Absolutely 👍 pairing disabled root login with hardware-backed keys like YubiKeys makes SSH…</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_Appreciate-that----I-always-try-to-write-with-hobbyists-and-pros-in-mind--473e4d8a5a81.html" target="_blank" rel="noopener noreferrer">Appreciate that 🙏 I always try to write with hobbyists and pros in mind.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_Appreciate-that----Totally-agree---weaving-security-into-CI-CD-is-the-only-way-to-keep-pace-with--4d9867f922b4.html" target="_blank" rel="noopener noreferrer">Appreciate that 🙏 Totally agree — weaving security into CI/CD is the only way to keep pace with…</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_Exactly----A-deny---log-rule-adds-great-visibility--Appreciate-the-feedback--f7797842a88e.html" target="_blank" rel="noopener noreferrer">Exactly 👍 A deny + log rule adds great visibility. Appreciate the feedback!</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_Exactly----endlessh---other-tarpits-can-really-slow-down-brute-forcers-and-keep-logs-cleaner--bd4761c243d2.html" target="_blank" rel="noopener noreferrer">Exactly 💯 endlessh + other tarpits can really slow down brute-forcers and keep logs cleaner.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_Exactly----even-a--restricted--sudo-command-can-be-abused-if-it-drops-to-a-shell--ac3e25950e86.html" target="_blank" rel="noopener noreferrer">Exactly 👌 even a ‘restricted’ sudo command can be abused if it drops to a shell.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_Exactly----logrotate-will-create-new-files--so-adding-a-post-rotate-script-to-reapply-chattr--a-on--1faba8214d91.html" target="_blank" rel="noopener noreferrer">Exactly 👍 logrotate will create new files, so adding a post-rotate script to reapply chattr +a on…</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_Fair-point--if-traffic-is-already-flowing-to-a-malicious-host--damage-may-be-done--065886c8799d.html" target="_blank" rel="noopener noreferrer">Fair point, if traffic is already flowing to a malicious host, damage may be done.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_Good-call--letting-anything-through-by-default-is-weak-security--2690e50ee822.html" target="_blank" rel="noopener noreferrer">Good call, letting anything through by default is weak security.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_Good-point----Yes--it-works-for-SMEs-too--tools-like-Ansible-Kairos-simplify-it-without-enterprise--434b957ff229.html" target="_blank" rel="noopener noreferrer">Good point 👌 Yes, it works for SMEs too, tools like Ansible/Kairos simplify it without enterprise…</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_Good-point--1Password-s-SSH-agent---MFA-support-makes-the-workflow-both-secure-and-smooth-----f222165608a8.html" target="_blank" rel="noopener noreferrer">Good point, 1Password’s SSH agent + MFA support makes the workflow both secure and smooth 🚀.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_Good-question----I-usually-baseline-with-config-mgmt-tools-like-Ansible---checksums--then-notify--57f2b278c38c.html" target="_blank" rel="noopener noreferrer">Good question 👍 I usually baseline with config mgmt tools like Ansible + checksums, then notify…</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_Good-question----The-app-was-bound-to-0-0-0-0-de24181aefb3.html" target="_blank" rel="noopener noreferrer">Good question 👍 The app was bound to 0.0.0.0</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_Great-insights----I-really-like-the-balance-you-describe--strong-MFA-where-needed--but-also--a7467c1ffa1f.html" target="_blank" rel="noopener noreferrer">Great insights 🙌 I really like the balance you describe; strong MFA where needed, but also…</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_Great-point----SSH-certificates-are-powerful-for-flexible-access-control--4d9895239a88.html" target="_blank" rel="noopener noreferrer">Great point 👌 SSH certificates are powerful for flexible access control.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_Great-question--0b9268d85e17.html" target="_blank" rel="noopener noreferrer">Great question!</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_Great-suggestion----SSH-certificates-with-short-lived-clients---a-root-CA-is-super-flexible--79dde2c2b54c.html" target="_blank" rel="noopener noreferrer">Great suggestion 👌 SSH certificates with short-lived clients + a root CA is super flexible.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_here-s-a-practical-script-you-can-share-with-Dimitri-Yioulos-as-a-follow-up--59e845aed05b.html" target="_blank" rel="noopener noreferrer">here’s a practical script you can share with Dimitri Yioulos as a follow-up.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_I-get-your-frustration--AI-is-a-double-edged-sword--5c1d3dd4e6d8.html" target="_blank" rel="noopener noreferrer">I get your frustration, AI is a double-edged sword.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_Nice-tip----history--d-is-super-handy-when-you-slip-secrets-into-the-shell--and-cleaning-HISTFILE--a76982133fda.html" target="_blank" rel="noopener noreferrer">Nice tip 👍 history -d is super handy when you slip secrets into the shell, and cleaning HISTFILE…</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_Thanks-a-lot--I-m-glad-you-found-it-useful-----7ec007465998.html" target="_blank" rel="noopener noreferrer">Thanks a lot, I’m glad you found it useful! 🙌</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_Thanks-a-lot--I-m-glad-you-found-it-useful-----86a21cc1df71.html" target="_blank" rel="noopener noreferrer">Thanks a lot, I’m glad you found it useful! 🙌</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_Thanks-a-lot--I-m-glad-you-found-it-useful-----d63a7a7fd70e.html" target="_blank" rel="noopener noreferrer">Thanks a lot, I’m glad you found it useful! 🙌</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_Thanks-Steve----Really-appreciate-that--hope-the-ideas-help-in-practice--83dd230e8317.html" target="_blank" rel="noopener noreferrer">Thanks Steve 🙏 Really appreciate that, hope the ideas help in practice.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_That-s-a-great-point----A-missing-or-altered-banner-can-definitely-tip-off-an-admin-to-a-MITM--cd5830ea23bd.html" target="_blank" rel="noopener noreferrer">That’s a great point 👏 A missing or altered banner can definitely tip off an admin to a MITM…</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_That-s-a-solid-approach----Ignition---FCOS---podman-is-a-great-way-to-enforce-state-from-the-start--2c1674b48e23.html" target="_blank" rel="noopener noreferrer">That’s a solid approach 👌 Ignition + FCOS + podman is a great way to enforce state from the start…</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_Totally-agree--MFA-adds-a-solid-extra-layer-with-minimal-effort--3da6a3aa4b53.html" target="_blank" rel="noopener noreferrer">Totally agree, MFA adds a solid extra layer with minimal effort.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_Well-said----The-basics---good-logging-go-a-long-way--no-need-to-overcomplicate-what-already-works--4828111b27af.html" target="_blank" rel="noopener noreferrer">Well said 👌 The basics + good logging go a long way, no need to overcomplicate what already works.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-20</td>
+        <td><a href="posts/2025-09-20_Yes--Tripwire-is-still-around--the-open-source-version-on-GitHub-is-maintained--though-not-as--ba3a0432c07c.html" target="_blank" rel="noopener noreferrer">Yes, Tripwire is still around, the open-source version on GitHub is maintained, though not as…</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-19</td>
+        <td><a href="posts/2025-09-19_The-Linux-Log-Hackers-Hope-You-Never-Check-74f854610a53.html" target="_blank" rel="noopener noreferrer">The Linux Log Hackers Hope You Never Check</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-17</td>
+        <td><a href="posts/2025-09-17_Why-I-Always-Disable-Unused-Linux-Services-After-Installation-d99b931a866f.html" target="_blank" rel="noopener noreferrer">Why I Always Disable Unused Linux Services After Installation</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-15</td>
+        <td><a href="posts/2025-09-15_Why-I-Don-t-Trust-Default-Firewall-Rules-on-Linux-Servers-307be2417f9c.html" target="_blank" rel="noopener noreferrer">Why I Don’t Trust Default Firewall Rules on Linux Servers</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-12</td>
+        <td><a href="posts/2025-09-12_Why-I-Always-Use-chattr-to-Protect-Critical-Linux-Files-550524b94d7b.html" target="_blank" rel="noopener noreferrer">Why I Always Use chattr to Protect Critical Linux Files</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-10</td>
+        <td><a href="posts/2025-09-10_Why-I-Enable-Multi-Factor-Authentication--MFA--for-SSH-on-Linux-Servers-566d8d1d9ce4.html" target="_blank" rel="noopener noreferrer">Why I Enable Multi-Factor Authentication (MFA) for SSH on Linux Servers</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-08</td>
+        <td><a href="posts/2025-09-08_Why-I-Always-Restrict-Cron-Jobs-on-Linux-Servers-08662de6d71f.html" target="_blank" rel="noopener noreferrer">Why I Always Restrict Cron Jobs on Linux Servers</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-06</td>
+        <td><a href="posts/2025-09-06_Why-I-Always-Limit-sudo-Access-on-Linux-Servers-1613fb993981.html" target="_blank" rel="noopener noreferrer">Why I Always Limit sudo Access on Linux Servers</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-03</td>
+        <td><a href="posts/2025-09-03_Why-I-Always-Disable-Unused-Services-on-Linux-Servers-be91f0ff0901.html" target="_blank" rel="noopener noreferrer">Why I Always Disable Unused Services on Linux Servers</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-01</td>
+        <td><a href="posts/2025-09-01_Good-point--Paul---using-key---password-is-definitely-stronger-than-relying-on-a-single-factor--bf2743e2db24.html" target="_blank" rel="noopener noreferrer">Good point, Paul - using key + password is definitely stronger than relying on a single factor.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-01</td>
+        <td><a href="posts/2025-09-01_Great-suggestion--John---SSH-certificates-are-a-really-powerful-option--especially-for-environments--6f7e117584b0.html" target="_blank" rel="noopener noreferrer">Great suggestion, John - SSH certificates are a really powerful option, especially for environments…</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-09-01</td>
+        <td><a href="posts/2025-09-01_Why-I-Always-Set-a-Login-Banner-on-Linux-Servers--and-What-I-Put-in-It--60eec3336f3b.html" target="_blank" rel="noopener noreferrer">Why I Always Set a Login Banner on Linux Servers (and What I Put in It)</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-30</td>
+        <td><a href="posts/2025-08-30_Why-I-Always-Set-Up-File-Integrity-Monitoring-on-Linux-Servers-f7929fe4db39.html" target="_blank" rel="noopener noreferrer">Why I Always Set Up File Integrity Monitoring on Linux Servers</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-28</td>
+        <td><a href="posts/2025-08-28_Why-I-Always-Monitor-Outbound-Traffic-on-My-Linux-Servers-b54001cf0889.html" target="_blank" rel="noopener noreferrer">Why I Always Monitor Outbound Traffic on My Linux Servers</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-26</td>
+        <td><a href="posts/2025-08-26_Why-I-Enable-Multi-Factor-Authentication--MFA--for-SSH-on-Linux-Servers-88f0a07ffb53.html" target="_blank" rel="noopener noreferrer">Why I Enable Multi-Factor Authentication (MFA) for SSH on Linux Servers</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-24</td>
+        <td><a href="posts/2025-08-24_Why-AI-Powered-Attacks-Make-Linux-Hardening-More-Urgent-Than-Ever-a816ced453b9.html" target="_blank" rel="noopener noreferrer">Why AI-Powered Attacks Make Linux Hardening More Urgent Than Ever</a></td>
+        <td>4 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-23</td>
+        <td><a href="posts/2025-08-23_Why-I-Never-Allow-Root-SSH-Logins-on-My-Linux-Servers-abf3bef9ca8a.html" target="_blank" rel="noopener noreferrer">Why I Never Allow Root SSH Logins on My Linux Servers</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-18</td>
+        <td><a href="posts/2025-08-18_Hi-Sunil--faf7843af627.html" target="_blank" rel="noopener noreferrer">Hi Sunil,</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-18</td>
+        <td><a href="posts/2025-08-18_Why-I-Never-Trust-Default-Linux-User-Accounts--And-Neither-Should-You--adf5fad9fe95.html" target="_blank" rel="noopener noreferrer">Why I Never Trust Default Linux User Accounts (And Neither Should You)</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-17</td>
+        <td><a href="posts/2025-08-17_Anytime--Andre--glad-it-helped-clarify--4d41a6d6d1ca.html" target="_blank" rel="noopener noreferrer">Anytime, Andre, glad it helped clarify.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-17</td>
+        <td><a href="posts/2025-08-17_Excellent-points--Peter--you-re-absolutely-right--6db4950fefe3.html" target="_blank" rel="noopener noreferrer">Excellent points, Peter, you’re absolutely right.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-17</td>
+        <td><a href="posts/2025-08-17_Great-approach--codehorse--348a07ca1ef0.html" target="_blank" rel="noopener noreferrer">Great approach, codehorse!</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-17</td>
+        <td><a href="posts/2025-08-17_Great-points--I-agree-completely--adde3f135f61.html" target="_blank" rel="noopener noreferrer">Great points, I agree completely.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-17</td>
+        <td><a href="posts/2025-08-17_Thanks-for-the-invite--Halil---200k-monthly-traffic-is-impressive--8f7c2653f1eb.html" target="_blank" rel="noopener noreferrer">Thanks for the invite, Halil — 200k monthly traffic is impressive.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-17</td>
+        <td><a href="posts/2025-08-17_The-First-24-Hours-After-a-Linux-Breach---My-Incident-Response-Playbook-3b70ac59b11d.html" target="_blank" rel="noopener noreferrer">The First 24 Hours After a Linux Breach — My Incident Response Playbook</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-17</td>
+        <td><a href="posts/2025-08-17_The-Hidden-Risks-of-SSH-Agent-Forwarding--And-How-I-Avoid-Them--d7abff54f567.html" target="_blank" rel="noopener noreferrer">The Hidden Risks of SSH Agent Forwarding (And How I Avoid Them)</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-15</td>
+        <td><a href="posts/2025-08-15_Good-question--Andre---all-my-SSH-keys-are-protected-with-strong-passphrases--and-I-also-store--f66292f1fcc1.html" target="_blank" rel="noopener noreferrer">Good question, Andre - all my SSH keys are protected with strong passphrases, and I also store…</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-13</td>
+        <td><a href="posts/2025-08-13_Why-I-Run-Multiple-SSH-Keys-Instead-of-Just-One-2bc4065c5415.html" target="_blank" rel="noopener noreferrer">Why I Run Multiple SSH Keys Instead of Just One</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-12</td>
+        <td><a href="posts/2025-08-12_Thanks--Akshay---glad-you-found-it-useful--d9f9afa2443e.html" target="_blank" rel="noopener noreferrer">Thanks, Akshay - glad you found it useful.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-12</td>
+        <td><a href="posts/2025-08-12_That-makes-a-lot-of-sense--David---containers-with-orchestration-are-a-great-fit-for-cloud--and--f32981d3d881.html" target="_blank" rel="noopener noreferrer">That makes a lot of sense, David - containers with orchestration are a great fit for cloud, and…</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-11</td>
+        <td><a href="posts/2025-08-11_Absolutely--Andy---you-nailed-it--The-hardest-part-isn-t-the-tooling--it-s-the-mindset-shift--092f74d72b70.html" target="_blank" rel="noopener noreferrer">Absolutely, Andy - you nailed it. The hardest part isn’t the tooling, it’s the mindset shift.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-11</td>
+        <td><a href="posts/2025-08-11_Glad-to-hear-it-sparked-some-ideas--Andy--d86a5dd4948b.html" target="_blank" rel="noopener noreferrer">Glad to hear it sparked some ideas, Andy!</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-11</td>
+        <td><a href="posts/2025-08-11_How-I-Hunt-for-Silent-Rootkits-on-Linux--Before-They-Hunt-Me--a94b723fe659.html" target="_blank" rel="noopener noreferrer">How I Hunt for Silent Rootkits on Linux (Before They Hunt Me)</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-09</td>
+        <td><a href="posts/2025-08-09_I-hear-you--Kibambe-core-OS-builds-and-secured-image-deployments-have-been-around-for-a-while--and--dbb9ce7ccc2b.html" target="_blank" rel="noopener noreferrer">I hear you, Kibambe core OS builds and secured image deployments have been around for a while, and…</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-09</td>
+        <td><a href="posts/2025-08-09_I-hear-you--Kibambe-I-ve-spent-years-in-hands-on-Linux-administration-too--259fc67eec5a.html" target="_blank" rel="noopener noreferrer">I hear you, Kibambe I’ve spent years in hands-on Linux administration too.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-09</td>
+        <td><a href="posts/2025-08-09_Thanks--Kibambe-I-fully-agree-that-CIS--STIG--and-best-practices-are-non-negotiable--8383b2839aca.html" target="_blank" rel="noopener noreferrer">Thanks, Kibambe I fully agree that CIS, STIG, and best practices are non-negotiable.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-08</td>
+        <td><a href="posts/2025-08-08_The-One-Linux-Security-Habit-That-Exposes-You---And-How-I-Fixed-It-7ad94ee1d4b1.html" target="_blank" rel="noopener noreferrer">The One Linux Security Habit That Exposes You — And How I Fixed It</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-07</td>
+        <td><a href="posts/2025-08-07_Absolutely--Paul-Zero-Trust-is-exactly-the-mindset-behind-this-approach--7f37bc4b6ded.html" target="_blank" rel="noopener noreferrer">Absolutely, Paul Zero Trust is exactly the mindset behind this approach.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-07</td>
+        <td><a href="posts/2025-08-07_Immutable-Infrastructure-on-Linux--Why-I-Don-t-Modify-Servers-After-Deployment-0c38885c37cb.html" target="_blank" rel="noopener noreferrer">Immutable Infrastructure on Linux: Why I Don’t Modify Servers After Deployment</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-07</td>
+        <td><a href="posts/2025-08-07_Thank-you-for-the-detailed-explanation--Dr--Khun-Yee-Fung-you-make-an-excellent-point--9c7530d2e2dd.html" target="_blank" rel="noopener noreferrer">Thank you for the detailed explanation, Dr. Khun Yee Fung you make an excellent point.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-07</td>
+        <td><a href="posts/2025-08-07_Thanks-for-the-comment--Dr--64e79a127cbb.html" target="_blank" rel="noopener noreferrer">Thanks for the comment, Dr.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-05</td>
+        <td><a href="posts/2025-08-05_Why-I-Use-Read-Only-Partitions-on-My-Linux-Servers--And-You-Should-Too--d06c6f60eee9.html" target="_blank" rel="noopener noreferrer">Why I Use Read-Only Partitions on My Linux Servers (And You Should Too)</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-02</td>
+        <td><a href="posts/2025-08-02_Absolutely--Vlad---great-call--0652adc60dc4.html" target="_blank" rel="noopener noreferrer">Absolutely, Vlad - great call.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-02</td>
+        <td><a href="posts/2025-08-02_Absolutely-agree--Kibambe------Linux-gives-you-the-tools--but-it-s-up-to-the-admin-to-actually-use--bb8ba4c34adf.html" target="_blank" rel="noopener noreferrer">Absolutely agree, Kibambe 👏 - Linux gives you the tools, but it’s up to the admin to actually use…</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-02</td>
+        <td><a href="posts/2025-08-02_Fair-point--Johnathan---dynamic-IPs-can-be-a-real-pain-when-you-re-locking-SSH-down-to-specific--13c7c65c4976.html" target="_blank" rel="noopener noreferrer">Fair point, Johnathan - dynamic IPs can be a real pain when you're locking SSH down to specific…</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-02</td>
+        <td><a href="posts/2025-08-02_Great-additions--Rafa----you-re-absolutely-right--f7e6c9ce0aa3.html" target="_blank" rel="noopener noreferrer">Great additions, Rafał - you're absolutely right.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-02</td>
+        <td><a href="posts/2025-08-02_Great-point--Sebbernard---using-ProtectSystem-True-at-the-systemd-unit-level-is-a-smart-way-to-lock--ef88a7428b30.html" target="_blank" rel="noopener noreferrer">Great point, Sebbernard — using ProtectSystem=True at the systemd unit level is a smart way to lock…</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-02</td>
+        <td><a href="posts/2025-08-02_Spot-on--Emilio---once-a-server-s-compromised-at-that-level--especially-with-rootkits-or-persistent--355db9049080.html" target="_blank" rel="noopener noreferrer">Spot on, Emilio - once a server's compromised at that level, especially with rootkits or persistent…</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-08-02</td>
+        <td><a href="posts/2025-08-02_What-I-Do-the-Moment-I-Suspect-My-Ubuntu-Server-Has-Been-Compromised-a88d0a68cfff.html" target="_blank" rel="noopener noreferrer">What I Do the Moment I Suspect My Ubuntu Server Has Been Compromised</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-07-31</td>
+        <td><a href="posts/2025-07-31_Great-point--Vlad---you-re-absolutely-right--945fe76a5e69.html" target="_blank" rel="noopener noreferrer">Great point, Vlad — you're absolutely right!</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-07-31</td>
+        <td><a href="posts/2025-07-31_Thanks-for-the-great-tip--698de739a443.html" target="_blank" rel="noopener noreferrer">Thanks for the great tip!</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-07-30</td>
+        <td><a href="posts/2025-07-30_Why-I-No-Longer-Trust--Secure-by-Default--in-Linux-Server-Installs-acb225842736.html" target="_blank" rel="noopener noreferrer">Why I No Longer Trust “Secure by Default” in Linux Server Installs</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-07-28</td>
+        <td><a href="posts/2025-07-28_Thanks--Andre-great-additions-----1dc6855bb3c1.html" target="_blank" rel="noopener noreferrer">Thanks, Andre great additions! 🙌</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-07-28</td>
+        <td><a href="posts/2025-07-28_Why-You-Should-Never-Trust-Default-Configurations-on-a-Fresh-Linux-Install-fde5c62ed8a8.html" target="_blank" rel="noopener noreferrer">Why You Should Never Trust Default Configurations on a Fresh Linux Install</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-07-26</td>
+        <td><a href="posts/2025-07-26_The-Hidden-Danger-of-Old-Users--Why-I-Regularly-Audit--etc-passwd-on-My-Linux-Servers-53a2addb47dc.html" target="_blank" rel="noopener noreferrer">The Hidden Danger of Old Users: Why I Regularly Audit /etc/passwd on My Linux Servers</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-07-25</td>
+        <td><a href="posts/2025-07-25_Follow-me-on-social-media-----LinkedIn--https---www-linkedin-com-in-bornaly--bc585c1c67f2.html" target="_blank" rel="noopener noreferrer">Follow me on social media:
+🔗 LinkedIn: https://www.linkedin.com/in/bornaly/</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-07-24</td>
+        <td><a href="posts/2025-07-24_Hi-Louis--really-appreciate-your-detailed-and-experienced-input--130932182a12.html" target="_blank" rel="noopener noreferrer">Hi Louis, really appreciate your detailed and experienced input!</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-07-24</td>
+        <td><a href="posts/2025-07-24_How-I-Found-a-Hidden-Reverse-Shell-Running-as-www-data--And-What-I-Did-About-It--cae6df369583.html" target="_blank" rel="noopener noreferrer">How I Found a Hidden Reverse Shell Running as www-data (And What I Did About It)</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-07-24</td>
+        <td><a href="posts/2025-07-24_Thanks-Brian--1e3bcd4ef693.html" target="_blank" rel="noopener noreferrer">Thanks Brian!</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-07-24</td>
+        <td><a href="posts/2025-07-24_Thanks-Nickolas--b289ffab3965.html" target="_blank" rel="noopener noreferrer">Thanks Nickolas!</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-07-23</td>
+        <td><a href="posts/2025-07-23_Thank-you--Kibambe--0e8eb4746162.html" target="_blank" rel="noopener noreferrer">Thank you, Kibambe!</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-07-21</td>
+        <td><a href="posts/2025-07-21_7-Things-I-Check-Immediately-After-Logging-Into-a-Linux-Server-I-Didn-t-Set-Up-477874f4d8a4.html" target="_blank" rel="noopener noreferrer">7 Things I Check Immediately After Logging Into a Linux Server I Didn’t Set Up</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-07-21</td>
+        <td><a href="posts/2025-07-21_Limiting-SSH-access-to-specific-IPs-or-routing-through-a-bastion-host-is-a-solid-layer-of--a76daff97854.html" target="_blank" rel="noopener noreferrer">Limiting SSH access to specific IPs or routing through a bastion host is a solid layer of…</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-07-20</td>
+        <td><a href="posts/2025-07-20_Great-point--Nickolas-and-I-completely-agree-with-you--f9720f09acd9.html" target="_blank" rel="noopener noreferrer">Great point, Nickolas and I completely agree with you.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-07-20</td>
+        <td><a href="posts/2025-07-20_Hi-Bruno--thank-you-for-reading-and-for-your-thoughtful-question--c374fe58c3c9.html" target="_blank" rel="noopener noreferrer">Hi Bruno, thank you for reading and for your thoughtful question!</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-07-17</td>
+        <td><a href="posts/2025-07-17_7-Hidden-Backdoors-I-ve-Found-on-Compromised-Linux-Servers--And-How-to-Remove-Them--f66406f7cb0a.html" target="_blank" rel="noopener noreferrer">7 Hidden Backdoors I’ve Found on Compromised Linux Servers (And How to Remove Them)</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-07-14</td>
+        <td><a href="posts/2025-07-14_How-I-Use-aide-to-Detect-Unauthorized-Changes-on-My-Linux-and-Ubuntu-Servers-2b7c83a76d34.html" target="_blank" rel="noopener noreferrer">How I Use aide to Detect Unauthorized Changes on My Linux and Ubuntu Servers</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-07-11</td>
+        <td><a href="posts/2025-07-11_How-I-Harden-My-Linux-Server-in-30-Minutes-After-Every-Fresh-Install--Ubuntu---Red-Hat--7c92c8e5c12b.html" target="_blank" rel="noopener noreferrer">How I Harden My Linux Server in 30 Minutes After Every Fresh Install (Ubuntu & Red Hat)</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-07-07</td>
+        <td><a href="posts/2025-07-07_What-I-Check-Every-Week-to-Keep-My-Linux-Servers-Safe-and-Stable-cc05029c4e98.html" target="_blank" rel="noopener noreferrer">What I Check Every Week to Keep My Linux Servers Safe and Stable</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-07-05</td>
+        <td><a href="posts/2025-07-05_How-I-Use-netstat-and-ss-to-Catch-Suspicious-Connections-on-Linux-ee69f93a57c2.html" target="_blank" rel="noopener noreferrer">How I Use netstat and ss to Catch Suspicious Connections on Linux</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-07-03</td>
+        <td><a href="posts/2025-07-03_Hey-Ryan--a1b47fcfd635.html" target="_blank" rel="noopener noreferrer">Hey Ryan,</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-07-02</td>
+        <td><a href="posts/2025-07-02_Thanks-Nickolas--great-point--38898b04abf1.html" target="_blank" rel="noopener noreferrer">Thanks Nickolas, great point.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-07-02</td>
+        <td><a href="posts/2025-07-02_Why-I-Set-Email-Alerts-for-Every-New-User-Added-to-My-Linux-Server--And-How-You-Can-Too--98ccc369d7f7.html" target="_blank" rel="noopener noreferrer">Why I Set Email Alerts for Every New User Added to My Linux Server (And How You Can Too)</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-06-30</td>
+        <td><a href="posts/2025-06-30_How-a-Controlled-Breach-Test-Helped-Me-Harden-My-Linux-Server-Instantly-2970664c336f.html" target="_blank" rel="noopener noreferrer">How a Controlled Breach Test Helped Me Harden My Linux Server Instantly</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-06-28</td>
+        <td><a href="posts/2025-06-28_How-I-Found-a-Hidden-Backdoor-User-Account-on-My-Ubuntu-Server--And-What-I-Did-About-It--d8bd0dcc7926.html" target="_blank" rel="noopener noreferrer">How I Found a Hidden Backdoor User Account on My Ubuntu Server (And What I Did About It)</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-06-26</td>
+        <td><a href="posts/2025-06-26_The-Linux-Rootkit-That-Hid-in-Plain-Sight--How-I-Finally-Detected-It-6947d993c959.html" target="_blank" rel="noopener noreferrer">The Linux Rootkit That Hid in Plain Sight: How I Finally Detected It</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-06-24</td>
+        <td><a href="posts/2025-06-24_Why-I-Always-Check--etc-sudoers-d-on-a-Compromised-Linux-Server-f0363956798b.html" target="_blank" rel="noopener noreferrer">Why I Always Check /etc/sudoers.d on a Compromised Linux Server</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-06-23</td>
+        <td><a href="posts/2025-06-23_Thanks-for-the-insight--2563571d2673.html" target="_blank" rel="noopener noreferrer">Thanks for the insight!</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-06-20</td>
+        <td><a href="posts/2025-06-20_The-Linux-Service-That-Almost-Let-Attackers-Slip-In--And-How-I-Found-It-Just-in-Time--07b72a883f78.html" target="_blank" rel="noopener noreferrer">The Linux Service That Almost Let Attackers Slip In (And How I Found It Just in Time)</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-06-18</td>
+        <td><a href="posts/2025-06-18_The-Ultimate-Fusion--Linux--Ubuntu--and-Cybersecurity-449877563bc7.html" target="_blank" rel="noopener noreferrer">The Ultimate Fusion: Linux, Ubuntu, and Cybersecurity</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-06-16</td>
+        <td><a href="posts/2025-06-16_Why-I-Never-Trust-Pre-Installed-Packages-on-Linux-or-Ubuntu-Servers-c7da9ab86e13.html" target="_blank" rel="noopener noreferrer">Why I Never Trust Pre-Installed Packages on Linux or Ubuntu Servers</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-06-13</td>
+        <td><a href="posts/2025-06-13_Why-I-Check-for-Hidden-Processes-Every-Week-on-My-Linux-Servers--And-You-Should-Too--bccc5d9196ed.html" target="_blank" rel="noopener noreferrer">Why I Check for Hidden Processes Every Week on My Linux Servers (And You Should Too)</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-06-11</td>
+        <td><a href="posts/2025-06-11_How-I-Found-an-Unknown-Cron-Job-Mining-Crypto-on-My-Ubuntu-Server-25bc118b65a7.html" target="_blank" rel="noopener noreferrer">How I Found an Unknown Cron Job Mining Crypto on My Ubuntu Server</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-06-10</td>
+        <td><a href="posts/2025-06-10_7-CIS-Security-Best-Practices-I-Apply-on-Every-Linux-Server-I-Set-Up-8a8e723a4281.html" target="_blank" rel="noopener noreferrer">7 CIS Security Best Practices I Apply on Every Linux Server I Set Up</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-06-10</td>
+        <td><a href="posts/2025-06-10_Thank-you-for-this-solid-addition-----8df63f4ff383.html" target="_blank" rel="noopener noreferrer">Thank you for this solid addition! 🙌</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-06-09</td>
+        <td><a href="posts/2025-06-09_Hey--really-appreciate-that---thanks-for-catching-those--73a99df90490.html" target="_blank" rel="noopener noreferrer">Hey, really appreciate that — thanks for catching those!</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-06-08</td>
+        <td><a href="posts/2025-06-08_How-I-Use-auditd-to-Catch-Hidden-Changes-on-My-Linux-Server-f8c275b769a0.html" target="_blank" rel="noopener noreferrer">How I Use auditd to Catch Hidden Changes on My Linux Server</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-06-06</td>
+        <td><a href="posts/2025-06-06_How-I-Spot-a-Suspicious-Process-on-My-Linux-Server--Before-It-Does-Damage--b9092ce88f6f.html" target="_blank" rel="noopener noreferrer">How I Spot a Suspicious Process on My Linux Server (Before It Does Damage)</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-06-04</td>
+        <td><a href="posts/2025-06-04_What-I-Do-Before-Letting-Any-App-Run-as-Root-on-My-Linux-Server-a3eba7c4773f.html" target="_blank" rel="noopener noreferrer">What I Do Before Letting Any App Run as Root on My Linux Server</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-06-03</td>
+        <td><a href="posts/2025-06-03_How-to-Automatically-Lock-Out-SSH-Brute-Force-Attacks-on-Ubuntu-and-Red-Hat-69e5e07d049b.html" target="_blank" rel="noopener noreferrer">How to Automatically Lock Out SSH Brute-Force Attacks on Ubuntu and Red Hat</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-06-02</td>
+        <td><a href="posts/2025-06-02_Great-catch--jrmillr1---and-you-re-absolutely-right-to-question-that-step-order--383e4beda564.html" target="_blank" rel="noopener noreferrer">Great catch, jrmillr1 — and you’re absolutely right to question that step order.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-06-02</td>
+        <td><a href="posts/2025-06-02_Why-I-Never-Trust-Pre-Installed-Packages-on-Linux-or-Ubuntu-Servers-fe88dcacd5ae.html" target="_blank" rel="noopener noreferrer">Why I Never Trust Pre-Installed Packages on Linux or Ubuntu Servers</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-06-01</td>
+        <td><a href="posts/2025-06-01_Great-question--Nickolas---and-yes--I-did--311e113dfb51.html" target="_blank" rel="noopener noreferrer">Great question, Nickolas — and yes, I did.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-05-31</td>
+        <td><a href="posts/2025-05-31_Thanks-for-your-feedback--AndreC---I-get-where-you-re-coming-from--2a832e5ce1f2.html" target="_blank" rel="noopener noreferrer">Thanks for your feedback, AndreC — I get where you're coming from.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-05-31</td>
+        <td><a href="posts/2025-05-31_What-I-Learned-Publishing-5-Technical-Blogs-in-7-Days-on-Medium-7b130d6b88fb.html" target="_blank" rel="noopener noreferrer">What I Learned Publishing 5 Technical Blogs in 7 Days on Medium</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-05-30</td>
+        <td><a href="posts/2025-05-30_Why-I-Use-Read-Only-Partitions-on-My-Linux-Servers--And-You-Should-Too--b2e8f43c3b0f.html" target="_blank" rel="noopener noreferrer">Why I Use Read-Only Partitions on My Linux Servers (And You Should Too)</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-05-29</td>
+        <td><a href="posts/2025-05-29_How-I-Rebuild-a-Linux-Server-After-a-Suspected-Compromise--Step-by-Step--68f79e4a9e52.html" target="_blank" rel="noopener noreferrer">How I Rebuild a Linux Server After a Suspected Compromise (Step by Step)</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-05-29</td>
+        <td><a href="posts/2025-05-29_You-re-absolutely-right---setting-home-directories-to-0700-is-a-solid-first-step--04ea6eac6f1e.html" target="_blank" rel="noopener noreferrer">You're absolutely right — setting home directories to 0700 is a solid first step.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-05-28</td>
+        <td><a href="posts/2025-05-28_Thanks--Kelvin---totally-agree--d123e0ccce3b.html" target="_blank" rel="noopener noreferrer">Thanks, Kelvin — totally agree.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-05-27</td>
+        <td><a href="posts/2025-05-27_The-One-Log-Entry-That-Made-Me-Realize-My-Linux-Server-Was-Being-Scanned-03775774cc5d.html" target="_blank" rel="noopener noreferrer">The One Log Entry That Made Me Realize My Linux Server Was Being Scanned</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-05-26</td>
+        <td><a href="posts/2025-05-26_How-I-Use-Fail2Ban-on-Ubuntu-and-Linux-to-Block-Attackers-Before-They-Get-In-fdb848ce9c6c.html" target="_blank" rel="noopener noreferrer">How I Use Fail2Ban on Ubuntu and Linux to Block Attackers Before They Get In</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-05-23</td>
+        <td><a href="posts/2025-05-23_How-to-Audit-a-Linux-or-Ubuntu-Server-Like-a-Security-Consultant-39029092a96a.html" target="_blank" rel="noopener noreferrer">How to Audit a Linux or Ubuntu Server Like a Security Consultant</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-05-22</td>
+        <td><a href="posts/2025-05-22_Hi-Alejandro----Thanks--3e9ddc718785.html" target="_blank" rel="noopener noreferrer">Hi Alejandro, 
 
-      <section class="controls">
-        <div class="search-box">
-          <span>🔎</span>
-          <input
-            id="search"
-            type="text"
-            placeholder="Search by title, topic, or keyword…"
-          />
-        </div>
-        <div class="info-pill">
-          Tip: search for “SSH”, “hardening”, “habit”, “Windows”, “logs”… 
-        </div>
-      </section>
-
-      <section class="archive-list" id="archive-list">
-        <!-- Archive items will be injected here -->
-      </section>
-
-      <div class="load-more-wrapper">
-        <button id="archive-load-more" class="load-more-btn">
-          Load more posts
-        </button>
-      </div>
-    </main>
-
-    <footer>
-      <span>© <span id="year"></span> NextGen Threat.</span>
-      <span>
-        <a href="https://medium.com/@bornaly" target="_blank" rel="noopener"
-          >Medium</a
-        >
-        ·
-        <a href="https://x.com/cyberwebpen" target="_blank" rel="noopener"
-          >X (Twitter)</a
-        >
-      </span>
-    </footer>
-  </div>
-
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    const PAGE_SIZE = 30;
-    let allPosts = [];
-    let filteredPosts = [];
-    let offset = 0;
-
-    const listEl = document.getElementById("archive-list");
-    const summaryEl = document.getElementById("archive-summary");
-    const searchInput = document.getElementById("search");
-    const loadMoreBtn = document.getElementById("archive-load-more");
-
-    function renderChunk(reset = false) {
-      if (!listEl) return;
-
-      if (reset) {
-        listEl.innerHTML = "";
-        offset = 0;
-      }
-
-      const slice = filteredPosts.slice(offset, offset + PAGE_SIZE);
-      let currentGroup = "";
-
-      slice.forEach((post) => {
-        const groupLabel = post.groupLabel || "Other";
-
-        if (groupLabel !== currentGroup) {
-          currentGroup = groupLabel;
-          const groupHeader = document.createElement("div");
-          groupHeader.className = "group-header";
-          groupHeader.textContent = groupLabel;
-          listEl.appendChild(groupHeader);
-        }
-
-        const item = document.createElement("div");
-        item.className = "archive-item";
-
-        item.addEventListener("click", () => {
-          if (post.url) {
-            window.open(post.url, "_blank", "noopener");
-          }
-        });
-
-        item.innerHTML = `
-          <div class="archive-title">${post.title}</div>
-          <div class="archive-meta-row">
-            ${post.date ? `<span>${post.date}</span>` : ""}
-            ${
-              post.date && post.readTime
-                ? '<span class="meta-dot"></span>'
-                : ""
-            }
-            ${post.readTime ? `<span>${post.readTime}</span>` : ""}
-            ${
-              post.tag
-                ? `<span class="meta-dot"></span><span class="meta-tag">${post.tag}</span>`
-                : ""
-            }
-          </div>
-        `;
-
-        listEl.appendChild(item);
-      });
-
-      offset += slice.length;
-
-      if (loadMoreBtn) {
-        if (offset >= filteredPosts.length) {
-          loadMoreBtn.style.display = "none";
-        } else {
-          loadMoreBtn.style.display = "inline-flex";
-        }
-      }
-    }
-
-    function applyFilter() {
-      const q = (searchInput.value || "").toLowerCase().trim();
-
-      if (!q) {
-        filteredPosts = [...allPosts];
-      } else {
-        filteredPosts = allPosts.filter((post) => {
-          const haystack = (
-            post.title +
-            " " +
-            (post.date || "") +
-            " " +
-            (post.tag || "")
-          ).toLowerCase();
-          return haystack.includes(q);
-        });
-      }
-
-      renderChunk(true);
-
-      if (summaryEl) {
-        summaryEl.textContent =
-          filteredPosts.length === allPosts.length && !q
-            ? `Loaded ${allPosts.length} posts from the main site.`
-            : `Showing ${filteredPosts.length} of ${allPosts.length} posts.`;
-      }
-    }
-
-    async function loadFromIndex() {
-      try {
-        const res = await fetch("index.html", { cache: "no-store" });
-        const html = await res.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, "text/html");
-
-        const cards = Array.from(
-          doc.querySelectorAll("#blog-data-source .blog-card")
-        );
-
-        const posts = cards.map((card) => {
-          const link = card.querySelector("a");
-          const titleEl = card.querySelector(".blog-card-title");
-          const metaEl = card.querySelector(".blog-card-meta");
-
-          const title = titleEl ? titleEl.textContent.trim() : "";
-          const url = link ? link.href : "#";
-
-          let date = "";
-          let readTime = "";
-          if (metaEl) {
-            const metaText = metaEl.textContent.trim();
-            const parts = metaText.split("•").map((p) => p.trim());
-            if (parts.length === 1) {
-              readTime = parts[0];
-            } else if (parts.length >= 2) {
-              date = parts[0];
-              readTime = parts[1];
-            }
-          }
-
-          const lowerTitle = title.toLowerCase();
-          let tag = "General";
-          if (lowerTitle.includes("linux")) tag = "Linux";
-          else if (lowerTitle.includes("windows")) tag = "Windows";
-          else if (
-            lowerTitle.includes("bash") ||
-            lowerTitle.includes("script") ||
-            lowerTitle.includes("automation")
-          )
-            tag = "Automation";
-
-          // Simple group label using date prefix
-          let groupLabel = "Other";
-          if (date) {
-            groupLabel = date;
-          }
-
-          return { title, url, date, readTime, tag, groupLabel };
-        });
-
-        // Newest first
-        allPosts = posts.reverse();
-        filteredPosts = [...allPosts];
-
-        if (summaryEl) {
-          summaryEl.textContent = `Loaded ${allPosts.length} posts from the main site.`;
-        }
-
-        renderChunk(true);
-      } catch (err) {
-        console.error(err);
-        if (summaryEl) {
-          summaryEl.textContent =
-            "Could not load posts automatically. Make sure index.html is deployed with blog data.";
-        }
-      }
-    }
-
-    searchInput.addEventListener("input", () => {
-      applyFilter();
-    });
-
-    if (loadMoreBtn) {
-      loadMoreBtn.addEventListener("click", () => {
-        renderChunk(false);
-      });
-    }
-
-    loadFromIndex();
-  </script>
+Thanks!</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-05-21</td>
+        <td><a href="posts/2025-05-21_What-I-Check-First-When-a-Linux-Server-Starts-Acting-Suspicious-5bce6b46f0c9.html" target="_blank" rel="noopener noreferrer">What I Check First When a Linux Server Starts Acting Suspicious</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-05-20</td>
+        <td><a href="posts/2025-05-20_Why-I-Treat-Every-New-Linux-Server-as-Already-Compromised-3e740871ce06.html" target="_blank" rel="noopener noreferrer">Why I Treat Every New Linux Server as Already Compromised</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-05-18</td>
+        <td><a href="posts/2025-05-18_The-5-Most-Dangerous-Linux-Services-If-Left-Unsecured-53a96ca3924f.html" target="_blank" rel="noopener noreferrer">The 5 Most Dangerous Linux Services If Left Unsecured</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-05-15</td>
+        <td><a href="posts/2025-05-15_How-I-Accidentally-Left-a-Port-Open-on-My-Linux-Server--And-How-I-Caught-It--bffd2c052514.html" target="_blank" rel="noopener noreferrer">How I Accidentally Left a Port Open on My Linux Server (And How I Caught It)</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-05-14</td>
+        <td><a href="posts/2025-05-14_How-I-Use-Bash-Scripts-to-Save-Time-and-Earn-More-as-a-Linux-Freelancer-959f5d31474e.html" target="_blank" rel="noopener noreferrer">How I Use Bash Scripts to Save Time and Earn More as a Linux Freelancer</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-05-12</td>
+        <td><a href="posts/2025-05-12_How-I-Caught-a-Suspicious-Shell-Script-Running-in--tmp--And-What-It-Taught-Me--19fcd7abe63a.html" target="_blank" rel="noopener noreferrer">How I Caught a Suspicious Shell Script Running in /tmp (And What It Taught Me)</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-05-10</td>
+        <td><a href="posts/2025-05-10_I-Taught-My-Linux-Server-to-Feel-Regret---Then-Watched-It-Apologize-in-Real-Time-a9ceef9d33f3.html" target="_blank" rel="noopener noreferrer">I Taught My Linux Server to Feel Regret — Then Watched It Apologize in Real-Time</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-05-09</td>
+        <td><a href="posts/2025-05-09_The-One-Linux-Security-Habit-That-Saved-Me-From-a-Silent-Breach-a0a138d25962.html" target="_blank" rel="noopener noreferrer">The One Linux Security Habit That Saved Me From a Silent Breach</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-05-08</td>
+        <td><a href="posts/2025-05-08_How-I-Use-AuditD-to-Catch-Silent-Security-Threats-on-Linux-9e9b5ba48895.html" target="_blank" rel="noopener noreferrer">How I Use AuditD to Catch Silent Security Threats on Linux</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-05-06</td>
+        <td><a href="posts/2025-05-06_5-Windows-Defender-Features-You-re-Probably-Not-Using--But-Should-Be--ca02740fc76d.html" target="_blank" rel="noopener noreferrer">5 Windows Defender Features You’re Probably Not Using (But Should Be)</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-05-06</td>
+        <td><a href="posts/2025-05-06_How-to-Detect-Suspicious-Activity-on-a-Linux-Server-in-Under-5-Minutes-6a60afd52a94.html" target="_blank" rel="noopener noreferrer">How to Detect Suspicious Activity on a Linux Server in Under 5 Minutes</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-05-04</td>
+        <td><a href="posts/2025-05-04_7-Windows-Server-Defaults-You-Should-Change-Right-After-Installation-310e56fee2a1.html" target="_blank" rel="noopener noreferrer">7 Windows Server Defaults You Should Change Right After Installation</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-05-01</td>
+        <td><a href="posts/2025-05-01_6-Signs-Your-Linux-Server-Might-Be-Compromised--And-What-to-Do-Next--5d3b4032e3cd.html" target="_blank" rel="noopener noreferrer">6 Signs Your Linux Server Might Be Compromised (And What to Do Next)</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-30</td>
+        <td><a href="posts/2025-04-30_5-Linux-Commands-Hackers-Use--And-How-to-Detect-Them-on-Your-Server--d44f488f7fa8.html" target="_blank" rel="noopener noreferrer">5 Linux Commands Hackers Use (And How to Detect Them on Your Server)</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-29</td>
+        <td><a href="posts/2025-04-29_7-Critical-Linux-Logs-You-Should-Review-After-a-Security-Incident-0adaa12906af.html" target="_blank" rel="noopener noreferrer">7 Critical Linux Logs You Should Review After a Security Incident</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-28</td>
+        <td><a href="posts/2025-04-28_5-More-Techniques-to-Lock-Down-Public-Facing-Linux-Servers-63b45e3930b6.html" target="_blank" rel="noopener noreferrer">5 More Techniques to Lock Down Public-Facing Linux Servers</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-28</td>
+        <td><a href="posts/2025-04-28_Thank-you-for-the-feedback--d241af978901.html" target="_blank" rel="noopener noreferrer">Thank you for the feedback!</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-27</td>
+        <td><a href="posts/2025-04-27_5-Linux-Hardening-Techniques-I-Apply-Before-Hosting-Any-Website-d3a58c9836ff.html" target="_blank" rel="noopener noreferrer">5 Linux Hardening Techniques I Apply Before Hosting Any Website</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-25</td>
+        <td><a href="posts/2025-04-25_6-Linux-Misconfigurations-I-Regret-Not-Catching-Sooner-a6769849762d.html" target="_blank" rel="noopener noreferrer">6 Linux Misconfigurations I Regret Not Catching Sooner</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-24</td>
+        <td><a href="posts/2025-04-24_8-Log-Files-Every-Linux-Admin-Should-Monitor-Daily-5d9334830392.html" target="_blank" rel="noopener noreferrer">8 Log Files Every Linux Admin Should Monitor Daily</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-23</td>
+        <td><a href="posts/2025-04-23_1-Linux-Command-That-Saved-Me-From-a-Server-Meltdown-449ccdb31f77.html" target="_blank" rel="noopener noreferrer">1 Linux Command That Saved Me From a Server Meltdown</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-22</td>
+        <td><a href="posts/2025-04-22_7-Linux-Security-Mistakes-I-Made--So-You-Don-t-Have-To--27107263be7a.html" target="_blank" rel="noopener noreferrer">7 Linux Security Mistakes I Made (So You Don’t Have To)</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-21</td>
+        <td><a href="posts/2025-04-21_How-to-Audit-Your-Linux-Server-for-Hidden-Threats-in-Under-15-Minutes-d057476f631d.html" target="_blank" rel="noopener noreferrer">How to Audit Your Linux Server for Hidden Threats in Under 15 Minutes</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-20</td>
+        <td><a href="posts/2025-04-20_How-to-Set-Up-a-Honeypot-on-Your-Linux-Server-to-Catch-Attackers-in-Action-1f0c13bddee5.html" target="_blank" rel="noopener noreferrer">How to Set Up a Honeypot on Your Linux Server to Catch Attackers in Action</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-20</td>
+        <td><a href="posts/2025-04-20_The-5-Most-Overlooked-Linux-Files-That-Could-Expose-Your-Server-to-Hackers-0c5895816363.html" target="_blank" rel="noopener noreferrer">The 5 Most Overlooked Linux Files That Could Expose Your Server to Hackers</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-18</td>
+        <td><a href="posts/2025-04-18_I-Tried-Breaking-Into-My-Own-Linux-Server---Here-s-What-I-Learned-About-Real-World-Security-5c40078431b8.html" target="_blank" rel="noopener noreferrer">I Tried Breaking Into My Own Linux Server — Here’s What I Learned About Real-World Security</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-17</td>
+        <td><a href="posts/2025-04-17_How-to-Detect-and-Block-Malicious-IPs-on-Your-Ubuntu-Linux-Server-in-Real-Time-ee7c3aa98400.html" target="_blank" rel="noopener noreferrer">How to Detect and Block Malicious IPs on Your Ubuntu Linux Server in Real Time</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-16</td>
+        <td><a href="posts/2025-04-16_10-Security-Commands-Every-Linux-Admin-Should-Know--But-Probably-Doesn-t--02ad7afda229.html" target="_blank" rel="noopener noreferrer">10 Security Commands Every Linux Admin Should Know (But Probably Doesn’t)</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-15</td>
+        <td><a href="posts/2025-04-15_How-I-Use-Python-to-Make-Extra-Cash-Every-Month--Even-as-a-Beginner--b5261ebee70c.html" target="_blank" rel="noopener noreferrer">How I Use Python to Make Extra Cash Every Month (Even as a Beginner)</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-14</td>
+        <td><a href="posts/2025-04-14_How-to-Use-APIs-to-Build-Money-Making-Tools--With-Python-Examples--57597f95a8fb.html" target="_blank" rel="noopener noreferrer">How to Use APIs to Build Money-Making Tools (With Python Examples)</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-12</td>
+        <td><a href="posts/2025-04-12_7-Bash-Mistakes-I-Made-That-Cost-Me-Time--And-How-to-Avoid-Them--9110c2cc23c5.html" target="_blank" rel="noopener noreferrer">7 Bash Mistakes I Made That Cost Me Time (And How to Avoid Them)</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-11</td>
+        <td><a href="posts/2025-04-11_How-I-Harden-My-Linux-Web-Server-Against-Cyber-Attacks--CentOS---Ubuntu-Guide--ac7879ce52f7.html" target="_blank" rel="noopener noreferrer">How I Harden My Linux Web Server Against Cyber Attacks (CentOS & Ubuntu Guide)</a></td>
+        <td>3 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-10</td>
+        <td><a href="posts/2025-04-10_5-Simple-Bash-Scripts-That-Can-Save-You-Hours--and-Maybe-Make-You-Money--963131cd74a7.html" target="_blank" rel="noopener noreferrer">5 Simple Bash Scripts That Can Save You Hours (and Maybe Make You Money)</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-10</td>
+        <td><a href="posts/2025-04-10_Excellent-tricks----185796ae7467.html" target="_blank" rel="noopener noreferrer">Excellent tricks!!!</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-10</td>
+        <td><a href="posts/2025-04-10_Good-directions--692055d6d66b.html" target="_blank" rel="noopener noreferrer">Good directions!</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-10</td>
+        <td><a href="posts/2025-04-10_Good-topic----d19ea6ad934a.html" target="_blank" rel="noopener noreferrer">Good topic!!!</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-08</td>
+        <td><a href="posts/2025-04-08_How-AI-is-Transforming-Cybersecurity--Opportunities-and-Challenges-ab0c984c5ceb.html" target="_blank" rel="noopener noreferrer">How AI is Transforming Cybersecurity: Opportunities and Challenges</a></td>
+        <td>5 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-07</td>
+        <td><a href="posts/2025-04-07_Good-stuff--80aaac0b9551.html" target="_blank" rel="noopener noreferrer">Good stuff.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-07</td>
+        <td><a href="posts/2025-04-07_Good-topic--b6d5e08d3462.html" target="_blank" rel="noopener noreferrer">Good topic!</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-07</td>
+        <td><a href="posts/2025-04-07_Good-writing--504df6f7c288.html" target="_blank" rel="noopener noreferrer">Good writing!</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-07</td>
+        <td><a href="posts/2025-04-07_Nice-topics--8a68f50a4a19.html" target="_blank" rel="noopener noreferrer">Nice topics.</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-06</td>
+        <td><a href="posts/2025-04-06_The-Growing-Threat-of-Ransomware--How-to-Protect-Your-Organization-from-Attacks-8c5da6dbc827.html" target="_blank" rel="noopener noreferrer">The Growing Threat of Ransomware: How to Protect Your Organization from Attacks</a></td>
+        <td>5 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-04</td>
+        <td><a href="posts/2025-04-04_Embracing-the-Unknown--How-I-Turned-Challenges-into-Opportunities-in-the-Tech-World-6e65be5b7a57.html" target="_blank" rel="noopener noreferrer">Embracing the Unknown: How I Turned Challenges into Opportunities in the Tech World</a></td>
+        <td>5 min</td>
+      </tr>
+      <tr>
+        <td>2025-04-04</td>
+        <td><a href="posts/2025-04-04_How-to-Stay-Productive-and-Focused-in-a-World-Full-of-Distractions-b683fd0fc818.html" target="_blank" rel="noopener noreferrer">How to Stay Productive and Focused in a World Full of Distractions</a></td>
+        <td>4 min</td>
+      </tr>
+      <tr>
+        <td>2025-01-13</td>
+        <td><a href="posts/2025-01-13_Secure-Your-Digital-Vault--A-Personal-Safe-for-Your-Passwords-e6b8b9fe8590.html" target="_blank" rel="noopener noreferrer">Secure Your Digital Vault: A Personal Safe for Your Passwords</a></td>
+        <td>27 min</td>
+      </tr>
+      <tr>
+        <td>2024-12-09</td>
+        <td><a href="posts/2024-12-09_Bitcoin--The-Digital-Gold-of-the-21st-Century-2dc1fda2ec5e.html" target="_blank" rel="noopener noreferrer">Bitcoin: The Digital Gold of the 21st Century</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2024-11-26</td>
+        <td><a href="posts/2024-11-26_Enhancing-Your-Cybersecurity-Practices-in-2024--6efb2c20c05d.html" target="_blank" rel="noopener noreferrer">Enhancing Your Cybersecurity Practices in 2024:</a></td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td>2024-07-08</td>
+        <td><a href="posts/2024-07-08_Encrypting-and-Decrypting-a--txt-File-Using-Python-s-Cryptography-Library-ad641b1bf7b9.html" target="_blank" rel="noopener noreferrer">Encrypting and Decrypting a .txt File Using Python’s Cryptography Library</a></td>
+        <td>4 min</td>
+      </tr>
+      <tr>
+        <td>2024-07-07</td>
+        <td><a href="posts/2024-07-07_About-me-2c5871746acc.html" target="_blank" rel="noopener noreferrer">About me</a></td>
+        <td>1 min</td>
+      </tr>
+      <tr>
+        <td>2024-07-07</td>
+        <td><a href="posts/2024-07-07_Automating-Report-Distribution--A-Python-Script-for-Emailing-Missing-Files-4f142d39cc9b.html" target="_blank" rel="noopener noreferrer">Automating Report Distribution: A Python Script for Emailing Missing Files</a></td>
+        <td>6 min</td>
+      </tr>
+      <tr>
+        <td>2023-12-23</td>
+        <td><a href="posts/2023-12-23_Is-there-a-chance-to-become-affiliated-so-I-can-send-traffic-to-you--Your-blog-is-informative--6d003c48398a.html" target="_blank" rel="noopener noreferrer">Is there a chance to become affiliated so I can send traffic to you? Your blog is informative.</a></td>
+        <td>1 min</td>
+      </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
 </body>
 </html>
